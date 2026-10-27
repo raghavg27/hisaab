@@ -21,7 +21,12 @@
     "offline": "You're offline",
     "signInAgain": "Sign in again to sync"
   },
-  "tabs": { "home": "Home", "groups": "Groups", "history": "History", "me": "Me" },
+  "tabs": {
+    "home": "Home",
+    "groups": "Groups",
+    "history": "History",
+    "me": "Me"
+  },
   "auth": {
     "title": "Sign in",
     "subtitle": "Use your email. We'll send you a sign-in link and a 6-digit code.",
@@ -377,8 +382,19 @@
     "addChip": "Add chip",
     "chipLabel": "Color",
     "chipValue": "Value",
-    "ranges": { "all": "All time", "year": "This year", "festive": "Festive season", "custom": "Custom" },
-    "cols": { "net": "Net", "nights": "Nights", "won": "Won", "best": "Best", "streak": "Streak" },
+    "ranges": {
+      "all": "All time",
+      "year": "This year",
+      "festive": "Festive season",
+      "custom": "Custom"
+    },
+    "cols": {
+      "net": "Net",
+      "nights": "Nights",
+      "won": "Won",
+      "best": "Best",
+      "streak": "Streak"
+    },
     "noStats": "Close a night to see the leaderboard.",
     "onlyAdmins": "Only admins can change these.",
     "newGroup": "New group",
@@ -481,5 +497,10 @@
     "not_counted": "Count everyone first",
     "void_breaks_log": "A later entry depends on this one. Void that first.",
     "bank_holder_must_handover": "Hand over the bank before leaving"
+  },
+  "sync": {
+    "live": "Live",
+    "offline": "Offline · {count} to sync",
+    "syncing": "Syncing"
   }
 }

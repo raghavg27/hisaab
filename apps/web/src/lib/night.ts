@@ -16,7 +16,8 @@ import { db, type LocalEvent, type LocalMember, type LocalSession } from './db';
 import { newId } from './ids';
 import { requestFlush } from './sync-bus';
 
-export type Draft = { [T in EventType]: { type: T; payload: PayloadOf<T> } }[EventType];
+/** `id` may be preset when another event must reference it (Fix links void → correction). */
+export type Draft = { [T in EventType]: { type: T; payload: PayloadOf<T>; id?: string } }[EventType];
 
 export type RecordResult = { ok: true; events: LedgerEvent[] } | Extract<CanApply, { ok: false }>;
 
@@ -42,7 +43,7 @@ export async function record(sessionId: string, drafts: Draft[]): Promise<Record
     const added: LocalEvent[] = [];
     for (const d of drafts) {
       const e = {
-        id: newId(),
+        id: d.id ?? newId(),
         sessionId,
         seq: state.lastSeq + 1,
         hostEpoch: session.hostEpoch,

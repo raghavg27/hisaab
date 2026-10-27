@@ -2,6 +2,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NextIntlClientProvider } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
+import { InstallPrompt } from '@/components/InstallPrompt';
 import { startAuth } from '@/lib/auth';
 import { usePrefs } from '@/lib/prefs';
 import { startSync } from '@/lib/sync';
@@ -35,6 +36,7 @@ export function Providers({ children }: { children: ReactNode }) {
     <QueryClientProvider client={client}>
       <NextIntlClientProvider locale={locale} messages={messages[locale]} timeZone="Asia/Kolkata">
         {children}
+        <InstallPrompt />
       </NextIntlClientProvider>
     </QueryClientProvider>
   );
