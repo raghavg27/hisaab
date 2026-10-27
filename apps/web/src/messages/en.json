@@ -290,7 +290,8 @@
     "closeOutbox": "Waiting for {count, plural, one {# entry} other {# entries}} to sync before closing…",
     "duration": "{h}h {m}m",
     "stats": "{players} · {duration} · {chips} chips issued · {shorts} shorts",
-    "bankMismatch": "Bank handover was off by {amount}"
+    "bankMismatch": "Bank handover was off by {amount}",
+    "adjustedMark": "adjusted"
   },
   "share": {
     "title": "Share live link",

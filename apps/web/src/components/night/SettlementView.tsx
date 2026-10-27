@@ -297,7 +297,12 @@ function ResultRow({ r, rank, night, open, onToggle }: { r: MemberResult; rank: 
         <Avatar name={m?.nickname ?? '?'} color={m?.color ?? 'sand'} size={36} />
         <span className="min-w-0 flex-1">
           <span className="block truncate font-semibold">
-            {m?.nickname} {r.adjusted && <span className="text-warn" aria-label="adjusted">⚠</span>}
+            {m?.nickname} {r.adjusted && (
+              <span className="text-warn">
+                <span aria-hidden>⚠</span>
+                <span className="sr-only">{t('adjustedMark')}</span>
+              </span>
+            )}
           </span>
           {r.titles.length > 0 && (
             <span className="block text-caption text-gold">{r.titles.map((x) => `${TITLE_ICON[x]} ${t(`titles.${x}`)}`).join(' · ')}</span>
