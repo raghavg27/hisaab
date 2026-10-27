@@ -1,6 +1,7 @@
 'use client';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { playSound } from './sound';
 
 export type Locale = 'en' | 'hi-Latn';
 
@@ -44,6 +45,9 @@ export function liteVisuals(): boolean {
   );
 }
 
+/** Feedback for a confirmed action: a short buzz, and the chip clink if sounds are on. */
 export function haptic() {
-  if (usePrefs.getState().haptics && typeof navigator !== 'undefined') navigator.vibrate?.(10);
+  const { haptics, sounds } = usePrefs.getState();
+  if (haptics && typeof navigator !== 'undefined') navigator.vibrate?.(10);
+  if (sounds) playSound('clink');
 }

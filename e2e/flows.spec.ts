@@ -112,3 +112,16 @@ test('switching to Hinglish in Me changes the UI and survives a reload', async (
   await page.reload();
   await expect(page.getByRole('button', { name: 'Naya game' })).toBeVisible();
 });
+
+test('with sounds on, confirming an action plays without errors', async ({ page, context }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await host(page, context);
+  await page.goto('/app/me');
+  await page.getByRole('switch', { name: 'Sounds' }).check({ force: true });
+  await startNight(page, 'Loud Gang', ['Rohit']);
+  await card(page, 'Rohit').getByRole('button', { name: 'Top-up' }).click();
+  await sheet(page).getByRole('button', { name: /^Confirm/ }).click();
+  await expect(card(page, 'Rohit')).toHaveAccessibleName('Rohit, in 1000 rupees');
+  expect(errors).toEqual([]);
+});

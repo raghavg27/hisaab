@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { DiyaMark } from '@/components/DiyaMark';
-import { prefersReducedMotion, liteVisuals } from '@/lib/prefs';
+import { prefersReducedMotion, liteVisuals, usePrefs } from '@/lib/prefs';
+import { playSound } from '@/lib/sound';
 
 const Sparks = dynamic(() => import('@/components/three/Sparks').then((m) => m.Sparks), { ssr: false });
 const SparksLite = dynamic(() => import('@/components/three/SparksLite').then((m) => m.SparksLite), { ssr: false });
@@ -35,6 +36,7 @@ export function Reveal({
   useEffect(() => {
     const el = root.current;
     if (!el) return;
+    if (usePrefs.getState().sounds) playSound('bell');
     if (prefersReducedMotion()) {
       const h = setTimeout(onDone, 1200);
       return () => clearTimeout(h);
