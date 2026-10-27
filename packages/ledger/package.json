@@ -10,13 +10,15 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "bundle": "esbuild src/index.ts --bundle --format=esm --platform=neutral --main-fields=module,main --minify --outfile=../../supabase/functions/_shared/ledger.mjs --banner:js=\"// Generated from packages/ledger by \\`pnpm --filter @hisaab/ledger bundle\\`. Do not edit.\""
   },
   "dependencies": {
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
+    "esbuild": "^0.28.2",
     "fast-check": "^4.10.2",
     "typescript": "5.9.3",
     "vitest": "^5.0.5"
