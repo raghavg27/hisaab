@@ -7,7 +7,7 @@ Update this file after every step so a resumed session knows where to pick up.
 - pnpm workspaces; TypeScript 5.9 (TS 7 native compiler is too new for Next's build).
 - Google login skipped for now (behind `NEXT_PUBLIC_GOOGLE_AUTH`); email OTP + anonymous are the working auth methods.
 - Docker is not installed, so pgTAP tests run against the remote project via `supabase test db --db-url`.
-- Supabase project ref `szraywvfetowvdwhlsoi`; Vercel project `raghavg27s-projects/hisaab`.
+- Supabase project ref `szraywvfetowvdwhlsoi`; Vercel project `raghavg27s-projects/hisaab` (root `apps/web`), public URL https://hisaab-liart-kappa.vercel.app.
 - Live-night routes use `?id=` (`/app/s?id=…`, `/app/s/count?id=…`) instead of `/app/s/[id]` so a static shell can be cached and opened in airplane mode. Same for `/app/g?id=`.
 - Free-tier Supabase blocks custom email templates without SMTP, so the email carries a magic link; the 6-digit code field works once SMTP + `supabase/templates/otp.html` are enabled.
 - Projection is a full replay each time (well under the 5 ms budget for 1,000 events), not incremental.
@@ -44,7 +44,7 @@ Update this file after every step so a resumed session knows where to pick up.
 ## M3 Trust features
 - [x] Host handover, bank handover, combined leave wizard
 - [x] Force takeover, epochs, heartbeat, rejected-events notice
-- [ ] verify-and-close edge function
+- [x] verify-and-close edge function
 
 ## M4 History & stats
 - [ ] Night detail, group leaderboard + festive season, personal stats, CSV export
@@ -58,4 +58,5 @@ Update this file after every step so a resumed session knows where to pick up.
 
 ## Next up
 - Groups list/detail (members, invites, settings, leaderboard), history, me, viewer `/v/[token]`, join `/join/[token]`, legal pages
-- verify-and-close edge function; Hinglish translations; E2E (Playwright) + RLS tests; CI; deploy
+- Hinglish translations; E2E #2–9 + RLS tests; CI
+- Done: E2E #1 green on pixel7 + iphone14, locally and against production; prod deployed via `npx vercel@latest deploy --prod` (the GitHub integration also builds on push)
