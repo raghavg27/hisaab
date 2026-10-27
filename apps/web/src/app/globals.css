@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+@import '@hisaab/ui/tokens.css';
+@source '../../../../packages/ui/src';
+
+@theme inline {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-feature-settings: 'tnum', 'cv11';
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.font-serif {
+  letter-spacing: -0.02em;
+}
+
+/* Rangoli/kolam line texture: empty states, share card, landing. Never behind numbers. */
+.rangoli {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48' fill='none' stroke='%23C8AD86' stroke-opacity='0.05' stroke-width='1'%3E%3Ccircle cx='24' cy='24' r='1.5' fill='%23C8AD86' fill-opacity='0.08'/%3E%3Cpath d='M24 8c8.8 0 16 7.2 16 16s-7.2 16-16 16S8 32.8 8 24 15.2 8 24 8z'/%3E%3Cpath d='M0 24c6.6 0 12-5.4 12-12M48 24c-6.6 0-12-5.4-12-12M0 24c6.6 0 12 5.4 12 12M48 24c-6.6 0-12 5.4-12 12'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
