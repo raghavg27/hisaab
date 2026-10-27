@@ -5,7 +5,7 @@ import { ArrowLeft, Check, GripVertical, Plus } from 'lucide-react';
 import { Reorder } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Field } from '@/components/Field';
 import { Toggle } from '@/components/Toggle';
 import { track } from '@/lib/analytics';
@@ -56,9 +56,11 @@ export function Wizard() {
     void lastGroupId().then((id) => setGroupId(groups.find((g) => g.id === id)?.id ?? groups[0]!.id));
   }, [groups, groupId]);
 
-  // Group defaults + last night's players.
+  // Group defaults + last night's players, once per group.
+  const initFor = useRef<string | null>(null);
   useEffect(() => {
-    if (!group || !members) return;
+    if (!group || !members?.length || initFor.current === group.id) return;
+    initFor.current = group.id;
     setBuyIn(group.defaultBuyIn);
     setUseChips(false);
     void lastPlayers(group.id).then((ids) => {
@@ -66,8 +68,7 @@ export function Wizard() {
       const mine = members.find((m) => m.userId === userId);
       setSeats(valid.length ? valid : mine ? [mine.id] : []);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [group?.id, members?.length]);
+  }, [group, members, userId]);
 
   const mine = members?.find((m) => m.userId === userId);
   const holder = bankHolder && seats.includes(bankHolder) ? bankHolder : mine && seats.includes(mine.id) ? mine.id : seats[0];
