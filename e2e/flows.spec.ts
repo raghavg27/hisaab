@@ -101,3 +101,14 @@ test.describe('reduced motion (§14.3 #9)', () => {
     await expect(page.locator('canvas')).toHaveCount(0);
   });
 });
+
+test('switching to Hinglish in Me changes the UI and survives a reload', async ({ page, context }) => {
+  await host(page, context);
+  await page.goto('/app/me');
+  await page.getByRole('radio', { name: 'Hinglish' }).click();
+  await expect(page.getByRole('heading', { name: 'Main', level: 1 })).toBeVisible();
+  await page.getByRole('link', { name: 'Home' }).click();
+  await expect(page.getByRole('button', { name: 'Naya game' })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'Naya game' })).toBeVisible();
+});
