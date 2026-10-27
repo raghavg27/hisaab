@@ -155,7 +155,8 @@ export async function flush(): Promise<void> {
       if (error) throw error;
       await markClean(db.groups, groups);
     }
-    const members = await db.members.where('dirty').equals(1).toArray();
+    // Claimed rows first: the creator's owner row is what lets RLS accept the rest.
+    const members = (await db.members.where('dirty').equals(1).toArray()).sort((a, b) => +!a.userId - +!b.userId);
     for (const m of members) {
       const { error } = await sb.from('group_members').upsert(memberToRow(m));
       if (error?.code === '23505' && error.message.includes('nickname')) {
