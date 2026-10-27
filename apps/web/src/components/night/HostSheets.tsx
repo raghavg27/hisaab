@@ -1,13 +1,16 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { activeStints } from '@hisaab/ledger';
 import { Button, Sheet } from '@hisaab/ui';
 import { useTranslations } from 'next-intl';
-import { QRCodeSVG } from 'qrcode.react';
 import { useEffect, useState } from 'react';
 import { drainOutbox, offerHost, transferHost } from '@/lib/host';
 import type { Night } from '@/lib/night';
 import { useToast } from '@/lib/toast';
 import { MemberPick } from './LeaveSheet';
+
+// Only needed once the sheet shows a QR, so keep it out of the Live Table bundle.
+const QRCodeSVG = dynamic(() => import('qrcode.react').then((m) => m.QRCodeSVG), { ssr: false });
 
 /** Hand over hosting (§8.8): pick a logged-in player, or show a QR they scan while logged in. */
 export function HostHandoverSheet({ night, open, onClose }: { night: Night; open: boolean; onClose: () => void }) {

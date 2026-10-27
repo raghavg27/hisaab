@@ -1,10 +1,13 @@
 'use client';
+import dynamic from 'next/dynamic';
 import { Button, Sheet } from '@hisaab/ui';
 import { useTranslations } from 'next-intl';
-import { QRCodeSVG } from 'qrcode.react';
 import { useState } from 'react';
 import { rotateViewToken } from '@/lib/host';
 import type { Night } from '@/lib/night';
+
+// Only needed once the sheet shows a QR, so keep it out of the Live Table bundle.
+const QRCodeSVG = dynamic(() => import('qrcode.react').then((m) => m.QRCodeSVG), { ssr: false });
 
 export function viewUrl(token: string) {
   return `${location.origin}/v/${token}`;
