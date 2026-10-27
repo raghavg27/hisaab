@@ -398,7 +398,8 @@
     "noStats": "Close a night to see the leaderboard.",
     "onlyAdmins": "Only admins can change these.",
     "newGroup": "New group",
-    "noGroups": "No groups yet. Start a night to make one."
+    "noGroups": "No groups yet. Start a night to make one.",
+    "removeChip": "Remove {label} chip"
   },
   "history": {
     "title": "History",
