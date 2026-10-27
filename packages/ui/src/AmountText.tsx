@@ -43,9 +43,8 @@ export function AmountText({
   return (
     <span
       className={cn('tnum inline-flex whitespace-nowrap', tone && value > 0 && 'text-win', tone && value < 0 && 'text-loss', className)}
-      aria-label={rupeesLabel(value)}
-      role="text"
     >
+      <span className="sr-only">{rupeesLabel(value)}</span>
       <span aria-hidden className="inline-flex">
         {[...text].map((ch, idx) =>
           DIGITS.includes(ch) ? (
