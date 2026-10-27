@@ -12,3 +12,4 @@ playwright-report/
 public/sw.js*
 public/swe-worker*
 supabase/.temp/
+.lighthouseci/

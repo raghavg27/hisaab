@@ -31,7 +31,7 @@ export function AppGate({ children }: { children: ReactNode }) {
   // The splash keeps one position in the tree so it isn't remounted (and cut short) once auth is ready.
   return (
     <>
-      {path === '/app' && <Splash />}
+      {path === '/app' && userId && !isAnonymous && <Splash />}
       {!ready || needsLogin || needsOnboarding ? (
         <Loading />
       ) : (

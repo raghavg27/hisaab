@@ -54,9 +54,14 @@ jobs:
         run: pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium
       - if: steps.gate.outputs.run == 'true'
         run: pnpm build && pnpm e2e
+      - if: steps.gate.outputs.run == 'true'
+        name: Lighthouse budgets (§12)
+        run: npx -y @lhci/cli@0.15.1 autorun
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-results
-          path: test-results/
+          path: |
+            test-results/
+            .lighthouseci/
           retention-days: 7
