@@ -126,7 +126,7 @@ function NetChart({ points }: { points: { date: string; net: number }[] }) {
         viewBox={`0 0 ${W} ${H}`}
         className="h-36 w-full touch-none"
         role="img"
-        aria-label={`${t('net')}: ${formatSigned(last.net)}, ${points.length} nights`}
+        aria-label={t('chartLabel', { net: formatSigned(last.net), count: points.length })}
         onPointerMove={onMove}
         onPointerDown={onMove}
         onPointerLeave={() => setHover(null)}

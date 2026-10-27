@@ -17,7 +17,7 @@ export function TabBar() {
   const path = usePathname();
   return (
     <nav
-      aria-label="Main"
+      aria-label={t('nav')}
       className="fixed inset-x-0 bottom-0 z-30 mx-auto flex max-w-[480px] border-t border-hairline bg-bg/95 pb-[env(safe-area-inset-bottom)] backdrop-blur"
     >
       {TABS.map(({ href, key, Icon }) => {

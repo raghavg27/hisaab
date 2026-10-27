@@ -25,7 +25,8 @@
     "home": "Home",
     "groups": "Groups",
     "history": "History",
-    "me": "Me"
+    "me": "Me",
+    "nav": "Main"
   },
   "auth": {
     "title": "Sign in",
@@ -291,7 +292,8 @@
     "duration": "{h}h {m}m",
     "stats": "{players} · {duration} · {chips} chips issued · {shorts} shorts",
     "bankMismatch": "Bank handover was off by {amount}",
-    "adjustedMark": "adjusted"
+    "adjustedMark": "adjusted",
+    "deferred": "{amount} deferred"
   },
   "share": {
     "title": "Share live link",
@@ -412,7 +414,8 @@
     "net": "Running net",
     "claimHint": "Claim your name in a group to see your stats.",
     "allNights": "All nights",
-    "detail": "Night detail"
+    "detail": "Night detail",
+    "chartLabel": "Running net {net} over {count, plural, one {# night} other {# nights}}"
   },
   "me": {
     "title": "Me",

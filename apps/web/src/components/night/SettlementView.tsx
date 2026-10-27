@@ -286,6 +286,7 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
 
 function ResultRow({ r, rank, night, open, onToggle }: { r: MemberResult; rank: number; night: Night; open: boolean; onToggle: () => void }) {
   const t = useTranslations('settle');
+  const tl = useTranslations('live');
   const m = night.member(r.memberId);
   const stints = night.state.stints.filter((s) => s.memberId === r.memberId);
   const repaid = stints.reduce((a, s) => a + s.repaidCash + s.repaidChips, 0);
@@ -318,8 +319,8 @@ function ResultRow({ r, rank, night, open, onToggle }: { r: MemberResult; rank: 
             const d = derive(s);
             return (
               <p key={s.id} className="tnum text-caption text-text-3">
-                #{i + 1}: In {formatINR(d.netChips)} → {formatINR((s.final ?? 0) + s.adj)} = {formatSigned(d.pnl ?? 0)}
-                {s.left && d.deferred !== 0 ? ` · ${formatSigned(d.deferred)} deferred` : ''}
+                #{i + 1}: {tl('in', { amount: formatINR(d.netChips) })} → {formatINR((s.final ?? 0) + s.adj)} = {formatSigned(d.pnl ?? 0)}
+                {s.left && d.deferred !== 0 ? ` · ${t('deferred', { amount: formatSigned(d.deferred) })}` : ''}
               </p>
             );
           })}
