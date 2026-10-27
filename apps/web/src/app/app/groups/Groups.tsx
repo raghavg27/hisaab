@@ -1,5 +1,5 @@
 'use client';
-import { Button, Eyebrow, Sheet, cn, formatINR } from '@hisaab/ui';
+import { Button, Sheet, cn, formatINR } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { ChevronRight, Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';

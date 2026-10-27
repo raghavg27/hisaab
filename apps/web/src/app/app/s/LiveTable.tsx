@@ -427,7 +427,7 @@ function MoreSheet({
 }) {
   const t = useTranslations('live');
   const go = useGo();
-  if (!stint) return <Sheet open={false} onClose={onClose} title="" children={null} />;
+  if (!stint) return <Sheet open={false} onClose={onClose} title="">{null}</Sheet>;
   const out = derive(stint).shortOutstanding;
   return (
     <Sheet open={!!stint} onClose={onClose} title={night.nameOf(stint.memberId)}>
