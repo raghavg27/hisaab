@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { DiyaMark } from '@/components/DiyaMark';
-import { prefersReducedMotion, useLiteVisuals } from '@/lib/prefs';
+import { prefersReducedMotion, liteVisuals } from '@/lib/prefs';
 
 const Sparks = dynamic(() => import('@/components/three/Sparks').then((m) => m.Sparks), { ssr: false });
 const SparksLite = dynamic(() => import('@/components/three/SparksLite').then((m) => m.SparksLite), { ssr: false });
@@ -29,7 +29,7 @@ export function Reveal({
   const t = useTranslations('settle');
   const root = useRef<HTMLDivElement>(null);
   const [burst, setBurst] = useState(false);
-  const [lite] = useState(() => useLiteVisuals());
+  const [lite] = useState(() => liteVisuals());
   const top = results[0] && results[0].pnl > 0 ? results[0] : null;
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { useLiteVisuals } from '@/lib/prefs';
+import { liteVisuals } from '@/lib/prefs';
 import { SplashLite } from './SplashLite';
 
 const DiyaSplash = dynamic(() => import('./DiyaSplash').then((m) => m.DiyaSplash), { ssr: false });
@@ -20,7 +20,7 @@ export function SplashGate() {
     } catch {
       return;
     }
-    setLite(useLiteVisuals());
+    setLite(liteVisuals());
     setShow(true);
   }, []);
   if (!show) return null;

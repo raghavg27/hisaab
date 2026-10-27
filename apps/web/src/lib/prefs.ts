@@ -33,7 +33,7 @@ export function prefersReducedMotion(): boolean {
 }
 
 /** True when the 3D scenes should fall back to CSS/Canvas2D (§11.5). */
-export function useLiteVisuals(): boolean {
+export function liteVisuals(): boolean {
   if (typeof navigator === 'undefined') return true;
   const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
   return (
