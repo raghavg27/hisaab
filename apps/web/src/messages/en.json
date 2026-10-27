@@ -152,7 +152,7 @@
     "clearFilter": "Show everyone",
     "readOnly": "You're viewing this night. Only the host can record.",
     "notHost": "You're no longer the host",
-    "rejectedTitle": "You're no longer the host. These {count, plural, one {entry wasn't} other {# entries weren't}} saved:",
+    "rejectedTitle": "You're no longer the host. {count, plural, one {This entry wasn't} other {These # entries weren't}} saved:",
     "rejectedHint": "Ask the new host to re-enter them.",
     "dismiss": "Dismiss",
     "addPlayerTitle": "Add a player",
