@@ -3,7 +3,7 @@ import { VOIDABLE, type LedgerEvent, type LogEntry, type VoidReason } from '@his
 import { Button, Keypad, Sheet, cn, formatINR } from '@hisaab/ui';
 import { AlertTriangle, ArrowLeft, Crown, Download, Landmark, Scale } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Field } from '@/components/Field';
 import { ToastHost } from '@/components/ToastHost';
 import { describeEvent } from '@/lib/describe';
@@ -188,9 +188,12 @@ function FixSheet({ night, target, onClose }: { night: Night; target: { entry: L
   const show = useToast((s) => s.show);
   const [reason, setReason] = useState<VoidReason>('wrong_amount');
   const [note, setNote] = useState('');
-  const [amount, setAmount] = useState(0);
+  // null until edited, so clearing the keypad to 0 doesn't snap back to the old amount.
+  const [edited, setAmount] = useState<number | null>(null);
+  useEffect(() => setAmount(null), [target]);
   const e = target?.entry.event;
   const oldAmount = e && 'amount' in (e.payload as object) ? (e.payload as { amount: number }).amount : e?.type === 'FINAL_COUNT' ? e.payload.finalChips : 0;
+  const amount = edited ?? oldAmount;
 
   async function submit() {
     if (!e || !target) return;
@@ -239,9 +242,9 @@ function FixSheet({ night, target, onClose }: { night: Night; target: { entry: L
             </>
           ) : (
             <>
-              <Keypad value={amount || oldAmount} onChange={setAmount} />
+              <Keypad value={amount} onChange={setAmount} />
               <Button variant="primary" size="lg" disabled={!amount || amount === oldAmount} onClick={submit}>
-                {t('fix')} · {formatINR(amount || oldAmount)}
+                {t('fix')} · {formatINR(amount)}
               </Button>
             </>
           )}
