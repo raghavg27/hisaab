@@ -1,82 +1,7 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { admin, deleteUser, makeUser, sheet, signIn } from './helpers';
-
-/** Types an amount on the custom keypad inside the open sheet. */
-export async function keypad(page: Page, amount: number) {
-  const s = sheet(page);
-  for (let i = 0; i < 8; i++) await s.getByRole('button', { name: 'Delete digit' }).click();
-  for (const d of String(amount)) await s.getByRole('button', { name: d, exact: true }).click();
-}
-
-export const card = (page: Page, name: string) => page.getByRole('listitem', { name: new RegExp(`^${name},`) });
-
-export async function stat(page: Page, label: string) {
-  return page.locator('header').getByText(label, { exact: true }).locator('..').innerText();
-}
-
-/** Creates a group and starts the §5.6 night with the given players. Returns the session id. */
-export async function startNight(page: Page, group: string, others: string[]) {
-  await page.goto('/app/new');
-  await page.getByRole('button', { name: 'New group' }).click();
-  await sheet(page).getByLabel('Group name').fill(group);
-  await sheet(page).getByRole('button', { name: 'Create' }).click();
-  for (const n of others) {
-    await page.getByPlaceholder('Type a name, press Enter').fill(n);
-    await page.getByPlaceholder('Type a name, press Enter').press('Enter');
-    await expect(page.getByRole('button', { name: n, pressed: true })).toBeVisible();
-  }
-  await page.getByRole('button', { name: /Start night/ }).click();
-  await page.waitForURL(/\/app\/s\?id=/);
-  return new URL(page.url()).searchParams.get('id')!;
-}
-
-/** §5.6 steps 2–7 on the Live Table. */
-export async function playGolden(page: Page) {
-  // 2. Rohit takes a short of ₹300 (Short → Custom → 300 → Confirm)
-  await card(page, 'Rohit').getByRole('button', { name: 'Short' }).click();
-  await sheet(page).getByRole('button', { name: 'Custom' }).click();
-  await keypad(page, 300);
-  await sheet(page).getByRole('button', { name: /^Confirm/ }).click();
-  // 3. Kunal tops up ₹500 (2 taps)
-  await card(page, 'Kunal').getByRole('button', { name: 'Top-up' }).click();
-  await sheet(page).getByRole('button', { name: /^Confirm/ }).click();
-  // 4. Rohit repays ₹200 cash
-  await card(page, 'Rohit').getByRole('button', { name: /More/ }).click();
-  await sheet(page).getByRole('button', { name: /Repay short/ }).click();
-  await sheet(page).getByRole('button', { name: 'Custom' }).click();
-  await keypad(page, 200);
-  await sheet(page).getByRole('button', { name: /^Confirm/ }).click();
-  // 5. Sana leaves with 900 chips, bank pays her ₹900
-  await card(page, 'Sana').getByRole('button', { name: /More/ }).click();
-  await sheet(page).getByRole('button', { name: 'Leave table' }).click();
-  await keypad(page, 900);
-  await sheet(page).getByRole('button', { name: 'Next' }).click();
-  await expect(sheet(page).getByText('Bank pays Sana')).toBeVisible();
-  await sheet(page).getByRole('button', { name: 'Settled ✓' }).click();
-  // 6. Sana rejoins
-  await page.getByRole('button', { name: /Left the table/ }).click();
-  await page.getByRole('button', { name: 'Rejoin' }).click();
-  await expect(card(page, 'Sana')).toBeVisible();
-  // 7. Priya takes a short of ₹200 (quick amount)
-  await card(page, 'Priya').getByRole('button', { name: 'Short' }).click();
-  await sheet(page).getByRole('button', { name: '₹200', exact: true }).click();
-  await sheet(page).getByRole('button', { name: /^Confirm/ }).click();
-  await expect(sheet(page)).toBeHidden();
-}
-
-export async function countAll(page: Page, counts: Record<string, number>) {
-  await page.getByRole('button', { name: 'End game' }).click();
-  await sheet(page).getByRole('button', { name: 'Start counting' }).click();
-  await page.waitForURL(/\/app\/s\/count/);
-  const first = Object.keys(counts)[0]!;
-  await page.getByRole('button', { name: new RegExp(`^${first}`) }).click();
-  // Saving jumps to the next uncounted player in seat order.
-  for (const [, amount] of Object.entries(counts)) {
-    await keypad(page, amount);
-    await sheet(page).getByRole('button', { name: /^Save/ }).click();
-  }
-}
+import { countAll, playGolden, startNight } from './night';
 
 test.describe('full night (§14.3 #1)', () => {
   let userId = '';
@@ -128,5 +53,18 @@ test.describe('full night (§14.3 #1)', () => {
     await expect
       .poll(async () => (await admin().from('sessions').select('status, verified_at').eq('id', id).single()).data, { timeout: 30_000 })
       .toMatchObject({ status: 'closed', verified_at: expect.any(String) });
+
+    // Verified results feed the group leaderboard and personal history (§8.14).
+    const { data: s } = await admin().from('sessions').select('group_id').eq('id', id).single();
+    await page.goto(`/app/g?id=${s!.group_id}`);
+    await page.getByRole('tab', { name: 'Leaderboard' }).click();
+    const rows = page.getByRole('table').getByRole('row');
+    await expect(rows).toHaveCount(6);
+    await expect(rows.nth(1)).toContainText(/Sana\s*\+₹500\s*1\s*1\s*₹500\s*1/);
+    await expect(rows.nth(5)).toContainText(/Priya\s*−₹700\s*1\s*0/);
+
+    await page.goto('/app/history');
+    await expect(page.getByText('Nights played').locator('..')).toContainText('1');
+    await expect(page.getByRole('link', { name: /Diwali Gang/ })).toContainText('−₹200');
   });
 });
