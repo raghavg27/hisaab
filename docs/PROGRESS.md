@@ -13,6 +13,7 @@ Update this file after every step so a resumed session knows where to pick up.
 - Projection is a full replay each time (well under the 5 ms budget for 1,000 events), not incremental.
 - Results in share text are ranked by P&L (§8.10), so the golden text lists Sana before Rohit.
 - Background Sync is not used: the SW can't read the Supabase session; flush runs on online/visibility/10 s instead.
+- The once-a-day splash plays on `/app` (the PWA start_url), not on the public landing page: on `/` it cost Lighthouse performance 60 (3D chunk + covered LCP). It never loads on deep links such as the Live Table.
 - `--text-3` is `#887F6E` instead of the PRD's `#7A7262`: the original is 4.2:1 on bg and fails WCAG AA for 12px captions.
 
 ## M0 Foundation

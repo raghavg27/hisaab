@@ -1,13 +1,10 @@
 'use client';
 import { Eyebrow } from '@hisaab/ui';
 import { CloudOff, Eye, ListChecks, Scale, ScrollText } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { DiyaMark } from '@/components/DiyaMark';
 import { APP_NAME } from '@/lib/config';
-
-const Splash = dynamic(() => import('@/components/three/SplashGate').then((m) => m.SplashGate), { ssr: false });
 
 const FEATURES = [
   { Icon: ScrollText, k: 'f1' },
@@ -21,7 +18,6 @@ export function Landing() {
   const t = useTranslations('landing');
   return (
     <div className="mx-auto max-w-[480px]">
-      <Splash />
       <header className="flex items-center justify-between px-4 pt-6">
         <span className="flex items-center gap-2">
           <DiyaMark size={28} />

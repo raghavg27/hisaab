@@ -5,10 +5,10 @@ import { card, countAll, keypad, startNight } from './night';
 const users: string[] = [];
 test.afterAll(async () => Promise.all(users.map(deleteUser)));
 
-async function host(page: Page, context: import('@playwright/test').BrowserContext) {
+async function host(page: Page, context: import('@playwright/test').BrowserContext, opts?: { splash?: boolean }) {
   const u = await makeUser('Amit');
   users.push(u.userId);
-  await signIn(context, u.session);
+  await signIn(context, u.session, opts);
 }
 
 test('gap: miscount, missing message, split equally, settlement shows ⚠ (§14.3 #6)', async ({ page, context }) => {
@@ -89,17 +89,28 @@ test.describe('reduced motion (§14.3 #9)', () => {
   test.use({ contextOptions: { reducedMotion: 'reduce' } });
 
   test('no WebGL canvas on the splash or the reveal', async ({ page, context }) => {
-    await page.goto('/');
+    // The once-a-day splash plays where the app opens.
+    await host(page, context, { splash: true });
+    await page.goto('/app');
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('hisaab-splash-day'))).toBe(await page.evaluate(() => new Date().toDateString()));
     await page.waitForTimeout(1_500);
     await expect(page.locator('canvas')).toHaveCount(0);
 
-    await host(page, context);
     await startNight(page, 'Calm Gang', ['Rohit']);
     await countAll(page, { Amit: 500, Rohit: 500 });
     await page.getByRole('button', { name: 'Settle' }).click();
     await expect(page.getByRole('dialog', { name: 'Results' })).toBeVisible();
     await expect(page.locator('canvas')).toHaveCount(0);
   });
+});
+
+test('the once-a-day 3D splash plays where the app opens, not on the landing page', async ({ page, context }) => {
+  await page.goto('/');
+  await page.waitForTimeout(1_000);
+  await expect(page.locator('canvas')).toHaveCount(0);
+  await host(page, context, { splash: true });
+  await page.goto('/app');
+  await expect(page.locator('canvas')).toHaveCount(1);
 });
 
 test('switching to Hinglish in Me changes the UI and survives a reload', async ({ page, context }) => {

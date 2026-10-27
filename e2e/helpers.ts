@@ -27,13 +27,13 @@ export async function makeUser(name: string): Promise<{ session: Session; userId
 }
 
 /** Puts the Supabase session where supabase-js looks for it, before any app script runs. */
-export async function signIn(context: BrowserContext, session: Session) {
+export async function signIn(context: BrowserContext, session: Session, { splash = false } = {}) {
   await context.addInitScript(
-    ([key, value]) => {
+    ([key, value, skipSplash]) => {
       if (!localStorage.getItem(key!)) localStorage.setItem(key!, value!);
-      localStorage.setItem('hisaab-splash-day', new Date().toDateString());
+      if (skipSplash) localStorage.setItem('hisaab-splash-day', new Date().toDateString());
     },
-    [`sb-${REF}-auth-token`, JSON.stringify(session)],
+    [`sb-${REF}-auth-token`, JSON.stringify(session), !splash] as const,
   );
 }
 
