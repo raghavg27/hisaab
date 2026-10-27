@@ -1,0 +1,69 @@
+/* Diya Night design tokens (PRD §11). Dark only. */
+:root {
+  /* surfaces — warm near-black, tonal steps */
+  --bg: #0a0705;
+  --surface-1: #120d09;
+  --surface-2: #1a130e;
+  --surface-well: #070504;
+
+  /* text — candlelight cream, never pure white */
+  --text: #fff7dd;
+  --text-2: #b8ae97;
+  --text-3: #7a7262;
+
+  /* lines */
+  --hairline: rgb(255 247 221 / 0.1);
+  --hairline-strong: rgb(255 247 221 / 0.18);
+  --gold: #c8ad86;
+
+  /* the one action color — diya flame */
+  --flame: #ffb829;
+  --on-flame: #1a0f00;
+  --ember: #ff7a1a;
+
+  /* semantic — always paired with a sign or icon */
+  --win: #7bd8a6;
+  --loss: #ff6b5b;
+  --short: #f0679a;
+  --warn: #ffb829;
+
+  /* depth = key treatment, not drop shadows */
+  --key: inset 0 1px 0 rgb(255 247 221 / 0.06), 0 0 0 1px rgb(255 247 221 / 0.1), inset 0 -1px 0 rgb(0 0 0 / 0.35);
+  --key-pressed: inset 0 2px 4px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 247 221 / 0.08);
+  --glow-flame: 0 0 24px rgb(255 184 41 / 0.28);
+  --flame-gradient: linear-gradient(180deg, #ffb829, #ff7a1a);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-well: var(--surface-well);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-gold: var(--gold);
+  --color-flame: var(--flame);
+  --color-on-flame: var(--on-flame);
+  --color-ember: var(--ember);
+  --color-win: var(--win);
+  --color-loss: var(--loss);
+  --color-short: var(--short);
+  --color-warn: var(--warn);
+
+  --radius-card: 16px;
+  --radius-sheet: 24px;
+  --radius-btn: 12px;
+
+  --text-caption: 12px;
+  --text-body: 15px;
+  --text-label: 13px;
+  --text-title: 20px;
+  --text-amount: 28px;
+  --text-display: 44px;
+  --text-hero: 64px;
+}
