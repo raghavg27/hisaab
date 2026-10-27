@@ -3,3 +3,12 @@ node_modules/
 .env.local
 CLAUDE.local.md
 .DS_Store
+.next/
+.vercel
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+public/sw.js*
+public/swe-worker*
+supabase/.temp/
