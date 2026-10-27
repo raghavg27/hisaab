@@ -37,9 +37,9 @@ Update this file after every step so a resumed session knows where to pick up.
 ## M2 Accounts & sync
 - [x] Supabase schema + RLS + RPCs
 - [x] Auth (email OTP/magic link), onboarding (name + 18+)
-- [ ] Groups, members, invites, claiming
+- [x] Groups, members, invites, claiming
 - [x] Outbox sync + Realtime
-- [ ] Viewer link
+- [x] Viewer link
 
 ## M3 Trust features
 - [x] Host handover, bank handover, combined leave wizard
@@ -47,7 +47,7 @@ Update this file after every step so a resumed session knows where to pick up.
 - [x] verify-and-close edge function
 
 ## M4 History & stats
-- [ ] Night detail, group leaderboard + festive season, personal stats, CSV export
+- [x] Night detail, group leaderboard + festive season, personal stats, CSV export
 
 ## M5 Look & feel
 - [x] Splash (R3F) + reveal (GSAP + R3F) with fallbacks
@@ -57,6 +57,6 @@ Update this file after every step so a resumed session knows where to pick up.
 - [ ] Legal pages, analytics, a11y pass, Lighthouse CI, Sentry (optional), prod env + deploy
 
 ## Next up
-- Groups list/detail (members, invites, settings, leaderboard), history, me, viewer `/v/[token]`, join `/join/[token]`, legal pages
-- Hinglish translations; E2E #2–9 + RLS tests; CI
-- Done: E2E #1 green on pixel7 + iphone14, locally and against production; prod deployed via `npx vercel@latest deploy --prod` (the GitHub integration also builds on push)
+- Hinglish translations; pgTAP RLS tests; CI workflow; Lighthouse CI; sounds; landing polish
+- Done: all §14.3 E2E specs (#1–9) green on pixel7 + iphone14 (`pnpm --filter web exec next build && pnpm e2e`)
+- Done: groups, group detail (members/invites/leaderboard/settings), history, me, viewer `/v/[token]`, join `/join/[token]`, legal pages
