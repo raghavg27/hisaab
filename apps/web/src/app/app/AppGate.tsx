@@ -6,7 +6,7 @@ import { TabBar } from '@/components/TabBar';
 import { useAuth } from '@/lib/auth';
 import { useGo } from '@/lib/nav';
 
-const NO_TABS = ['/app/s', '/app/new', '/app/onboarding'];
+const NO_TABS = ['/app/s', '/app/new', '/app/onboarding', '/join'];
 
 /** Auth gate for /app: signed in (not anonymous) with a profile and the 18+ confirmation. */
 export function AppGate({ children }: { children: ReactNode }) {
