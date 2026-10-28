@@ -102,12 +102,21 @@ test.describe('reduced motion (§14.3 #9)', () => {
     await expect(page.getByRole('dialog', { name: 'Results' })).toBeVisible();
     await expect(page.locator('canvas')).toHaveCount(0);
   });
+
+  test('the landing page skips the 3D table and shows every scene finished', async ({ page }) => {
+    await page.goto('/');
+    await page.mouse.wheel(0, 600);
+    await page.waitForTimeout(1_500);
+    await expect(page.locator('canvas')).toHaveCount(0);
+    await expect(page.getByText('Everything matches — ₹6,000')).toBeVisible();
+  });
 });
 
 test('the once-a-day 3D splash plays where the app opens, not on the landing page', async ({ page, context }) => {
+  // The landing page has its own 3D table, so check the splash by its once-a-day mark instead of by canvas.
   await page.goto('/');
   await page.waitForTimeout(1_000);
-  await expect(page.locator('canvas')).toHaveCount(0);
+  expect(await page.evaluate(() => localStorage.getItem('hisaab-splash-day'))).toBeNull();
   await host(page, context, { splash: true });
   await page.goto('/app');
   await expect(page.locator('canvas')).toHaveCount(1);
