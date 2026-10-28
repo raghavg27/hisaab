@@ -3,7 +3,7 @@ import { Avatar, Button, Eyebrow, Keypad, Sheet, cn, formatINR } from '@hisaab/u
 import { useLiveQuery } from 'dexie-react-hooks';
 import { GripVertical } from 'lucide-react';
 import { ArrowLeft, Check, Plus } from '@/components/AnimatedIcon';
-import { Reorder } from 'motion/react';
+import { Reorder, useDragControls } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -229,18 +229,7 @@ export function Wizard() {
                   {seats.map((id, i) => {
                     const m = name(id);
                     if (!m) return null;
-                    return (
-                      <Reorder.Item
-                        key={id}
-                        value={id}
-                        className="flex min-h-12 cursor-grab items-center gap-3 rounded-[var(--radius-btn)] bg-surface-1 px-3 shadow-[var(--key)] active:cursor-grabbing"
-                      >
-                        <span className="tnum w-5 text-caption text-text-3">{i + 1}</span>
-                        <Avatar name={m.nickname} color={m.color} size={28} />
-                        <span className="flex-1">{m.nickname}</span>
-                        <GripVertical size={18} strokeWidth={1.5} className="text-text-3" aria-hidden />
-                      </Reorder.Item>
-                    );
+                    return <Seat key={id} id={id} index={i} nickname={m.nickname} color={m.color} />;
                   })}
                 </Reorder.Group>
               </div>
@@ -364,5 +353,29 @@ export function Wizard() {
         </form>
       </Sheet>
     </main>
+  );
+}
+
+/** One seat row. Only the grip starts a drag, so swiping over the list still scrolls the page. */
+function Seat({ id, index, nickname, color }: { id: string; index: number; nickname: string; color: string }) {
+  const controls = useDragControls();
+  return (
+    <Reorder.Item
+      value={id}
+      dragListener={false}
+      dragControls={controls}
+      className="flex min-h-12 items-center gap-3 rounded-[var(--radius-btn)] bg-surface-1 pl-3 shadow-[var(--key)]"
+    >
+      <span className="tnum w-5 text-caption text-text-3">{index + 1}</span>
+      <Avatar name={nickname} color={color} size={28} />
+      <span className="flex-1">{nickname}</span>
+      <span
+        aria-hidden
+        onPointerDown={(e) => controls.start(e)}
+        className="flex size-12 cursor-grab touch-none items-center justify-center text-text-3 active:cursor-grabbing"
+      >
+        <GripVertical size={18} strokeWidth={1.5} />
+      </span>
+    </Reorder.Item>
   );
 }
