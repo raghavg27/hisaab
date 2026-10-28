@@ -237,6 +237,7 @@
   "count": {
     "title": "Final ginti",
     "backToGame": "Game pe wapas",
+    "backToGameBody": "Table phir se khul jayegi taaki aap record kar sako. Ab tak ki counting hat jayegi, end mein dobara count karna hoga.",
     "counted": "{expected} mein se {counted} gine",
     "left": "{count, plural, one {# player} other {# players}} ki ginti baaki",
     "match": "{amount} pe hisaab barabar ✅",

@@ -237,6 +237,7 @@
   "count": {
     "title": "Final count",
     "backToGame": "Back to game",
+    "backToGameBody": "The table unlocks so you can keep recording. Counts entered so far are cleared, so you will count again at the end.",
     "counted": "Counted {counted} of {expected}",
     "left": "{count, plural, one {# player} other {# players}} left to count",
     "match": "Everything matches at {amount}",

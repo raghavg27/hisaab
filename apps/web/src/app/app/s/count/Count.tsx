@@ -160,6 +160,7 @@ function CountScreen({ night }: { night: Night }) {
       </Sheet>
 
       <Sheet open={backOpen} onClose={() => setBackOpen(false)} title={t('backToGame')}>
+        <p className="mb-4 text-text-2">{t('backToGameBody')}</p>
         <Button variant="primary" size="lg" onClick={backToGame}>
           {t('backToGame')}
         </Button>
