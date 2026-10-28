@@ -35,7 +35,7 @@ const flameFragment = /* glsl */ `
   }
 `;
 
-function Flame({ fade }: { fade: React.RefObject<number> }) {
+export function Flame({ fade }: { fade: React.RefObject<number> }) {
   const mat = useMemo(
     () =>
       new THREE.ShaderMaterial({
