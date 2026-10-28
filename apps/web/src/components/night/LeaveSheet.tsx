@@ -99,8 +99,9 @@ export function LeaveSheet({
       type: 'PLAYER_LEFT',
       payload: { stintId: stint.id, finalChips: chips, settledNow: settled, ...(chipSet ? { chipBreakdown: breakdown } : {}) },
     });
-    const r = await record(session.id, drafts);
-    if (!r.ok) {
+    // On a retry after a failed host handover, the leave is already recorded.
+    const r = state.stints.find((s) => s.id === stint.id)?.left ? null : await record(session.id, drafts);
+    if (r && !r.ok) {
       setBusy(false);
       return setError(errorText(r));
     }
@@ -118,7 +119,7 @@ export function LeaveSheet({
       }
     }
     haptic();
-    show({ message: tl('toast.left', { name }), undo: hostTo ? undefined : { sessionId: session.id, eventIds: r.events.map((e) => e.id) } });
+    show({ message: tl('toast.left', { name }), undo: r && !hostTo ? { sessionId: session.id, eventIds: r.events.map((e) => e.id) } : undefined });
     onClose();
   }
 
