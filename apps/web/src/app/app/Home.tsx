@@ -4,6 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { ChevronRight, Plus, Zap } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useState } from 'react';
 import { DiyaMark } from '@/components/DiyaMark';
 import { StatusBadge } from '@/components/StatusBadge';
 import { useAuth } from '@/lib/auth';
@@ -15,6 +16,7 @@ export function Home() {
   const t = useTranslations('home');
   const { profile, userId } = useAuth();
   const go = useGo();
+  const [busy, setBusy] = useState(false);
   const groups = useLiveQuery(() => db.groups.filter((g) => !g.deletedAt).toArray(), []);
   const sessions = useLiveQuery(() => db.sessions.orderBy('startedAt').reverse().limit(20).toArray(), []);
   if (!groups || !sessions) return null;
@@ -23,6 +25,9 @@ export function Home() {
   const groupOf = (id: string) => groups.find((g) => g.id === id);
 
   async function quickStart() {
+    // A double tap would create two groups.
+    if (busy) return;
+    setBusy(true);
     const g = await createGroup({ name: dateTitle() });
     go(`/app/new?group=${g.id}`);
   }
@@ -59,7 +64,7 @@ export function Home() {
         <Button variant={live.length ? 'surface' : 'primary'} size="lg" onClick={() => go('/app/new')}>
           <Plus size={20} strokeWidth={1.5} aria-hidden /> {t('newNight')}
         </Button>
-        <Button variant="ghost" size="md" onClick={quickStart} aria-describedby="qs-hint">
+        <Button variant="ghost" size="md" onClick={quickStart} disabled={busy} aria-describedby="qs-hint">
           <Zap size={18} strokeWidth={1.5} aria-hidden /> {t('quickStart')}
         </Button>
         <p id="qs-hint" className="text-center text-caption text-text-3">
