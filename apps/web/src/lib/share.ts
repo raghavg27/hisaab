@@ -8,6 +8,15 @@ export function durationText(startedAt: string, endedAt: string | null) {
   return `${Math.floor(m / 60)}h ${m % 60}m`;
 }
 
+/** What the kitty holder actually collected (§8.11), and who hasn't paid yet. */
+export function kittyStatus(state: NightState) {
+  const kitty = state.config?.kitty;
+  if (!kitty) return null;
+  const people = [...new Set(state.stints.map((s) => s.memberId))];
+  const unpaid = people.filter((m) => !state.kittyPaid[m]);
+  return { collected: kitty.amount * (people.length - unpaid.length), holderMemberId: kitty.holderMemberId, unpaid };
+}
+
 /** WhatsApp share text (§8.10). Requires a settleable night. */
 export function shareText(opts: {
   title: string;
@@ -31,10 +40,10 @@ export function shareText(opts: {
     'Who pays whom',
     ...(transfers.length ? transfers.map((t) => `${nameOf(t.from)} → ${nameOf(t.to)} ${formatINR(t.amount)}`) : ['All square']),
   ];
-  const kitty = state.config?.kitty;
+  const kitty = kittyStatus(state);
   if (kitty) {
-    const people = new Set(state.stints.map((s) => s.memberId)).size;
-    lines.push('', `Kitty ${formatINR(kitty.amount * people)} with ${nameOf(kitty.holderMemberId)}`);
+    const unpaid = kitty.unpaid.length ? ` · not paid: ${kitty.unpaid.map(nameOf).join(', ')}` : '';
+    lines.push('', `Kitty ${formatINR(kitty.collected)} with ${nameOf(kitty.holderMemberId)}${unpaid}`);
   }
   if (opts.viewUrl) lines.push('', `Full log: ${opts.viewUrl}`);
   return lines.join('\n');

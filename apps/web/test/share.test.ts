@@ -2,7 +2,7 @@ import { applyEvent, canApply, emptyState, type EventType, type LedgerEvent, typ
 import { describe, expect, it } from 'vitest';
 import { shareText } from '@/lib/share';
 
-function golden() {
+function golden(kitty?: { amount: number; holderMemberId: string; paid: string[] }) {
   const state = emptyState();
   let n = 0;
   const add = <T extends EventType>(type: T, payload: PayloadOf<T>) => {
@@ -13,11 +13,18 @@ function golden() {
     state.log.push({ event: e, voided: null });
     applyEvent(state, e);
   };
-  add('SESSION_STARTED', { title: 'Diwali Night', buyIn: 500, topUp: 500, bankHolderMemberId: 'amit' });
+  add('SESSION_STARTED', {
+    title: 'Diwali Night',
+    buyIn: 500,
+    topUp: 500,
+    bankHolderMemberId: 'amit',
+    ...(kitty ? { kitty: { amount: kitty.amount, holderMemberId: kitty.holderMemberId } } : {}),
+  });
   for (const m of ['amit', 'rohit', 'priya', 'kunal', 'sana']) {
     add('PLAYER_JOINED', { stintId: m, memberId: m });
     add('BUY_IN', { stintId: m, amount: 500 });
   }
+  for (const m of kitty?.paid ?? []) add('KITTY_MARKED', { memberId: m, paid: true });
   add('SHORT_TAKEN', { stintId: 'rohit', amount: 300 });
   add('TOP_UP', { stintId: 'kunal', amount: 500 });
   add('SHORT_REPAID', { stintId: 'rohit', amount: 200, method: 'cash' });
@@ -64,5 +71,17 @@ describe('WhatsApp share text (§8.10)', () => {
         'Full log: https://hisaab.app/v/abc',
       ].join('\n'),
     );
+  });
+
+  it('counts only the kitty that was paid, and names who still owes it', () => {
+    const text = shareText({
+      title: 'Diwali Night',
+      state: golden({ amount: 100, holderMemberId: 'amit', paid: ['amit', 'rohit', 'priya', 'kunal'] }),
+      nameOf: (id) => names[id]!,
+      startedAt: '2026-11-08T14:00:00Z',
+      endedAt: '2026-11-08T18:12:00Z',
+      viewUrl: null,
+    });
+    expect(text.split('\n').at(-1)).toBe('Kitty ₹400 with Amit · not paid: Sana');
   });
 });

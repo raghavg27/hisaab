@@ -14,7 +14,7 @@ import { unsyncedCount } from '@/lib/host';
 import { useGo } from '@/lib/nav';
 import { recordOne, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
-import { durationText, shareText } from '@/lib/share';
+import { durationText, kittyStatus, shareText } from '@/lib/share';
 import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 import { maybeOfferInstall } from '@/components/InstallPrompt';
@@ -74,7 +74,7 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
 
   const shortsCount = state.stints.reduce((a, s) => a + s.shortsCount, 0);
   const chipsIssued = state.stints.reduce((a, s) => a + derive(s).chipsIssued, 0);
-  const kitty = session.config.kitty;
+  const kitty = kittyStatus(state);
   const people = new Set(state.stints.map((s) => s.memberId)).size;
   const bankMismatch = state.bankTransfers.filter((b) => b.payload.counted !== b.payload.expected);
   const url = session.dirty ? null : viewUrl(session.viewToken);
@@ -190,7 +190,12 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
           ))}
         </ul>
 
-        {kitty && <p className="mt-3 text-label text-text-2">🍲 {t('kitty', { amount: formatINR(kitty.amount * people), name: nameOf(kitty.holderMemberId) })}</p>}
+        {kitty && (
+          <p className="mt-3 text-label text-text-2">
+            🍲 {t('kitty', { amount: formatINR(kitty.collected), name: nameOf(kitty.holderMemberId) })}
+            {kitty.unpaid.length > 0 && <span className="text-warn"> · {t('kittyUnpaid', { names: kitty.unpaid.map(nameOf).join(', ') })}</span>}
+          </p>
+        )}
         {bankMismatch.map((b) => (
           <p key={b.id} className="mt-2 text-label text-loss">
             {t('bankMismatch', { amount: formatSigned(b.payload.counted - b.payload.expected) })}

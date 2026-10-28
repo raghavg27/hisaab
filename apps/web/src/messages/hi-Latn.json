@@ -293,6 +293,7 @@
     "kitty": "Kitty {amount}, {name} ke paas",
     "closeOutbox": "Band karne se pehle {count, plural, one {# entry} other {# entries}} sync ho rahi hai…",
     "duration": "{h}h {m}m",
+    "kittyUnpaid": "baaki: {names}",
     "stats": "{players} · {duration} · {chips} ke chips diye · {shorts} shorts",
     "bankMismatch": "Bank dete waqt {amount} ka farak tha",
     "adjustedMark": "adjust hua",
