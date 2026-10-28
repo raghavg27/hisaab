@@ -19,6 +19,9 @@ export function Sheet({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  // Parents pass a new onClose each render; keep it out of the effect so re-renders don't steal focus.
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
 
   useEffect(() => {
     if (!open) return;
@@ -27,7 +30,7 @@ export function Sheet({
     const first = el?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? el)?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') closeRef.current();
       if (e.key !== 'Tab' || !el) return;
       const items = [...el.querySelectorAll<HTMLElement>(FOCUSABLE)];
       if (!items.length) return;
@@ -45,7 +48,7 @@ export function Sheet({
       document.removeEventListener('keydown', onKey);
       prev?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (typeof document === 'undefined') return null;
   return createPortal(
