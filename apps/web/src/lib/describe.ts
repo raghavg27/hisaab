@@ -26,12 +26,15 @@ export function describeEvent(t: T, e: LedgerEvent, night: Pick<Night, 'state' |
       return t(`e.${e.type}`, { name: stintName(e.payload.stintId), amount: formatINR(e.payload.amount) });
     case 'SHORT_REPAID':
       return t(`e.SHORT_REPAID_${e.payload.method}`, { name: stintName(e.payload.stintId), amount: formatINR(e.payload.amount) });
-    case 'PLAYER_LEFT':
+    case 'PLAYER_LEFT': {
+      const settled = e.payload.settledNow;
       return t('e.PLAYER_LEFT', {
         name: stintName(e.payload.stintId),
         chips: formatINR(e.payload.finalChips),
-        amount: formatINR(e.payload.settledNow),
+        amount: formatINR(Math.abs(settled)),
+        paid: settled > 0 ? 'bank' : settled < 0 ? 'player' : 'none',
       });
+    }
     case 'FINAL_COUNT':
       return t('e.FINAL_COUNT', { name: stintName(e.payload.stintId), amount: formatINR(e.payload.finalChips) });
     case 'ADJUSTMENT':

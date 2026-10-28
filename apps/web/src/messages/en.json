@@ -342,7 +342,7 @@
       "SHORT_TAKEN": "{name} took a short · {amount}",
       "SHORT_REPAID_cash": "{name} paid back {amount} in cash",
       "SHORT_REPAID_chips": "{name} paid back {amount} in chips",
-      "PLAYER_LEFT": "{name} left with {chips} chips · settled {amount}",
+      "PLAYER_LEFT": "{name} left with {chips} in chips · {paid, select, bank {bank paid {amount}} player {paid the bank {amount}} other {nothing paid now}}",
       "COUNTING_STARTED": "Counting started",
       "COUNTING_REOPENED": "Back to the game",
       "FINAL_COUNT": "{name} counted {amount}",

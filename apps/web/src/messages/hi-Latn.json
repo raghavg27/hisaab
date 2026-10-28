@@ -342,7 +342,7 @@
       "SHORT_TAKEN": "{name} ne short liya · {amount}",
       "SHORT_REPAID_cash": "{name} ne {amount} cash mein lauta diye",
       "SHORT_REPAID_chips": "{name} ne {amount} chips mein lauta diye",
-      "PLAYER_LEFT": "{name} {chips} ke chips ke saath gaya · {amount} ka hisaab hua",
+      "PLAYER_LEFT": "{name} {chips} ke chips ke saath gaya · {paid, select, bank {bank ne {amount} diye} player {bank ko {amount} diye} other {abhi kuch nahi diya}}",
       "COUNTING_STARTED": "Ginti shuru",
       "COUNTING_REOPENED": "Game pe wapas",
       "FINAL_COUNT": "{name} ke {amount} gine",
