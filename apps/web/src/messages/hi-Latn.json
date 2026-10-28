@@ -478,7 +478,9 @@
     "noMoney": "Hisaab kabhi paisa nahi bhejta ya rakhta. Sirf score rakhta hai.",
     "terms": "Terms",
     "privacy": "Privacy",
-    "adults": "Sirf 18+ ke liye, jaan-pehchaan waalon ke saath score rakhne ko."
+    "adults": "Sirf 18+ ke liye, jaan-pehchaan waalon ke saath score rakhne ko.",
+    "watching": "{count} dekh rahe",
+    "closer": "Chips tum lao. Hisaab hum rakhenge."
   },
   "install": {
     "title": "Hisaab install karo",

@@ -478,7 +478,9 @@
     "noMoney": "Hisaab never moves or holds money. It only keeps score.",
     "terms": "Terms",
     "privacy": "Privacy",
-    "adults": "For adults (18+) keeping score with people they know."
+    "adults": "For adults (18+) keeping score with people they know.",
+    "watching": "{count} watching",
+    "closer": "Bring the chips. We'll keep the hisaab."
   },
   "install": {
     "title": "Install Hisaab",
