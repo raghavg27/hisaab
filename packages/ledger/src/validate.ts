@@ -11,7 +11,7 @@ import {
   type NightState,
 } from './project';
 
-export const MAX_PLAYERS = 12;
+export const MAX_PLAYERS = 20;
 
 export type ErrorCode =
   | 'invalid_payload'

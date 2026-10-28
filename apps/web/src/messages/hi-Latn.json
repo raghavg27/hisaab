@@ -505,7 +505,7 @@
     "bank_short": "Bank mein sirf {bankCash} hain",
     "settle_out_of_range": "Ye baaki se zyada hai",
     "member_active": "Pehle se table pe hai",
-    "table_full": "Zyada se zyada 12 players",
+    "table_full": "Zyada se zyada {max} players",
     "gap_not_zero": "Ginti abhi barabar nahi",
     "not_counted": "Pehle sabki ginti karo",
     "void_breaks_log": "Baad ki ek entry isi pe tiki hai. Pehle use void karo.",

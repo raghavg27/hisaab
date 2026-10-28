@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canApply, derive, planAdjustment, project, reconcile, stintOf, tableTotals } from '../src';
+import { canApply, derive, MAX_PLAYERS, planAdjustment, project, reconcile, stintOf, tableTotals } from '../src';
 import { Night } from './helpers';
 
 function table(players = ['a', 'b', 'c']) {
@@ -72,8 +72,9 @@ describe('validation rules (§5.7)', () => {
     n.add('TOP_UP', { stintId: 's-b', amount: 500 });
   });
 
-  it('max 12 players at the table', () => {
-    const n = table(Array.from({ length: 12 }, (_, i) => `p${i}`).map((x, i) => (i === 0 ? 'a' : x)));
+  it(`max ${MAX_PLAYERS} players at the table`, () => {
+    expect(MAX_PLAYERS).toBeGreaterThanOrEqual(15);
+    const n = table(Array.from({ length: MAX_PLAYERS }, (_, i) => `p${i}`).map((x, i) => (i === 0 ? 'a' : x)));
     expect(reject(n, 'PLAYER_JOINED', { stintId: 's-x', memberId: 'x' }).code).toBe('table_full');
   });
 });

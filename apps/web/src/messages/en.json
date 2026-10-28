@@ -505,7 +505,7 @@
     "bank_short": "The bank only has {bankCash}",
     "settle_out_of_range": "That is more than what is owed",
     "member_active": "Already at the table",
-    "table_full": "A table can have at most 12 players",
+    "table_full": "A table can have at most {max} players",
     "gap_not_zero": "The count does not match yet",
     "not_counted": "Count everyone's chips first",
     "void_breaks_log": "A later entry depends on this one. Void that first.",
