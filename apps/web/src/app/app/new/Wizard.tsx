@@ -1,4 +1,5 @@
 'use client';
+import { MAX_PLAYERS } from '@hisaab/ledger';
 import { Avatar, Button, Eyebrow, Keypad, Sheet, cn, formatINR } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { GripVertical } from 'lucide-react';
@@ -332,8 +333,14 @@ export function Wizard() {
             {error}
           </p>
         )}
-        <Button variant="primary" size="lg" disabled={busy || seats.length < 2 || !holder} onClick={start}>
-          {busy ? t('starting') : seats.length < 2 ? t('needTwo') : `${t('start')} · ${formatINR(seats.length * buyIn)}`}
+        <Button variant="primary" size="lg" disabled={busy || seats.length < 2 || seats.length > MAX_PLAYERS || !holder} onClick={start}>
+          {busy
+            ? t('starting')
+            : seats.length < 2
+              ? t('needTwo')
+              : seats.length > MAX_PLAYERS
+                ? t('tooMany', { max: MAX_PLAYERS })
+                : `${t('start')} · ${formatINR(seats.length * buyIn)}`}
         </Button>
       </div>
 
