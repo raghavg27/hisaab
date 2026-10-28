@@ -1,7 +1,9 @@
 'use client';
 import { AnimatePresence, motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
+import { UNDO_MS } from '@/lib/config';
 import { recordOne, record } from '@/lib/night';
+import { prefersReducedMotion } from '@/lib/prefs';
 import { useToast } from '@/lib/toast';
 import { cn } from '@hisaab/ui';
 
@@ -37,7 +39,7 @@ export function ToastHost({ bottom = 96 }: { bottom?: number }) {
             exit={{ y: 24, opacity: 0 }}
             transition={{ duration: 0.16 }}
             className={cn(
-              'pointer-events-auto flex min-h-12 items-center gap-3 rounded-[var(--radius-btn)] border bg-surface-2 py-2 pr-2 pl-4 shadow-[var(--key)]',
+              'pointer-events-auto relative flex min-h-12 overflow-hidden items-center gap-3 rounded-[var(--radius-btn)] border bg-surface-2 py-2 pr-2 pl-4 shadow-[var(--key)]',
               toast.tone === 'error' ? 'border-loss/40 text-loss' : 'border-hairline-strong',
             )}
             role={toast.tone === 'error' ? 'alert' : 'status'}
@@ -47,6 +49,16 @@ export function ToastHost({ bottom = 96 }: { bottom?: number }) {
               <button type="button" onClick={undo} className="min-h-10 rounded-[10px] px-3 text-label font-semibold text-flame active:bg-surface-1">
                 {t('undo')}
               </button>
+            )}
+            {/* How long Undo stays available. */}
+            {toast.undo && !prefersReducedMotion() && (
+              <motion.span
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-flame"
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: 0 }}
+                transition={{ duration: UNDO_MS / 1000, ease: 'linear' }}
+              />
             )}
           </motion.div>
         )}
