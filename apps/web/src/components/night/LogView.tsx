@@ -1,7 +1,8 @@
 'use client';
 import { VOIDABLE, type LedgerEvent, type LogEntry, type VoidReason } from '@hisaab/ledger';
 import { Button, Keypad, Sheet, cn, formatINR } from '@hisaab/ui';
-import { AlertTriangle, ArrowLeft, Crown, Download, Landmark, Scale } from 'lucide-react';
+import { AlertTriangle, Crown, Landmark, Scale } from 'lucide-react';
+import { ArrowLeft, Download } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
 import { Field } from '@/components/Field';

@@ -1,7 +1,8 @@
 'use client';
 import { derive, nightResults, settlement, transferKey, type MemberResult } from '@hisaab/ledger';
 import { Avatar, Button, Eyebrow, Sheet, cn, formatINR, formatSigned } from '@hisaab/ui';
-import { ArrowLeft, ChevronDown, ScrollText } from 'lucide-react';
+import { ScrollText } from 'lucide-react';
+import { ArrowLeft, ChevronDown } from '@/components/AnimatedIcon';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';

@@ -1,5 +1,5 @@
 'use client';
-import { History, Home, User, Users } from 'lucide-react';
+import { History, Home, User, Users } from '@/components/AnimatedIcon';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';

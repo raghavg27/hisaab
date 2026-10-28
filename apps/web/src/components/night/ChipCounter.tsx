@@ -1,7 +1,8 @@
 'use client';
 import type { ChipSet } from '@hisaab/ledger';
 import { formatINR } from '@hisaab/ui';
-import { Minus, Plus } from 'lucide-react';
+import { Minus } from 'lucide-react';
+import { Plus } from '@/components/AnimatedIcon';
 
 /** Steppers per chip color; the total is chips × value. */
 export function ChipCounter({

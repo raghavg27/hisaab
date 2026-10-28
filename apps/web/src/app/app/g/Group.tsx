@@ -2,7 +2,8 @@
 import type { ChipSet } from '@hisaab/ledger';
 import { Avatar, Button, Eyebrow, Sheet, cn, formatINR, formatSigned } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { ArrowLeft, ChevronRight, Copy, Link2, Play, Plus, Trash2, UserPlus } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Copy, Link2, Play, Plus, UserPlus } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';

@@ -1,6 +1,7 @@
 'use client';
 import { Button, Eyebrow, MEMBER_COLOR_KEYS, Sheet, cn, colorHex } from '@hisaab/ui';
-import { Download, LogOut, Smartphone, Trash2 } from 'lucide-react';
+import { Smartphone, Trash2 } from 'lucide-react';
+import { Download, LogOut } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';

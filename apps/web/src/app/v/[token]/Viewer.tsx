@@ -2,7 +2,8 @@
 import { activeStints, isSettleable, tableTotals } from '@hisaab/ledger';
 import { AmountText, Avatar, Button, Sheet } from '@hisaab/ui';
 import { AnimatePresence } from 'motion/react';
-import { ScrollText, UserCheck } from 'lucide-react';
+import { ScrollText } from 'lucide-react';
+import { UserCheck } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { DiyaMark } from '@/components/DiyaMark';

@@ -1,7 +1,8 @@
 'use client';
 import { Avatar, Button, Eyebrow, Keypad, Sheet, cn, formatINR } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { ArrowLeft, Check, GripVertical, Plus } from 'lucide-react';
+import { GripVertical } from 'lucide-react';
+import { ArrowLeft, Check, Plus } from '@/components/AnimatedIcon';
 import { Reorder } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';

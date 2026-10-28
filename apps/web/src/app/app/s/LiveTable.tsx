@@ -2,7 +2,8 @@
 import { activeStints, derive, tableTotals, type StintState } from '@hisaab/ledger';
 import { AmountText, Avatar, Button, Sheet, cn, formatINR, formatSigned } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { ArrowLeft, ChevronDown, Lock, ScrollText, Share2, Unlock, UserPlus } from 'lucide-react';
+import { ScrollText, Share2 } from 'lucide-react';
+import { ArrowLeft, ChevronDown, Lock, Unlock, UserPlus } from '@/components/AnimatedIcon';
 import { AnimatePresence, motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';

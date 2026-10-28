@@ -1,7 +1,7 @@
 'use client';
 import { Button, Sheet, cn, formatINR } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { ChevronRight, Plus } from 'lucide-react';
+import { ChevronRight, Plus } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';

@@ -1,7 +1,7 @@
 'use client';
 import { activeStints, countStatus, derive, planAdjustment, type Resolution, type StintState } from '@hisaab/ledger';
 import { Avatar, Button, Keypad, Sheet, cn, formatINR, formatSigned } from '@hisaab/ui';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Loading } from '@/components/Splash';

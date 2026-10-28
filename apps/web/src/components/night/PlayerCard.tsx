@@ -1,7 +1,8 @@
 'use client';
 import { derive, type StintState } from '@hisaab/ledger';
 import { AmountText, Avatar, cn, formatINR, rupeesLabel } from '@hisaab/ui';
-import { Crown, Landmark, MoreHorizontal, Plus } from 'lucide-react';
+import { Crown, Landmark, MoreHorizontal } from 'lucide-react';
+import { Plus } from '@/components/AnimatedIcon';
 import { motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import type { LocalMember } from '@/lib/db';

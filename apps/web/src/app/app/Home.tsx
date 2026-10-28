@@ -1,7 +1,7 @@
 'use client';
 import { Button, Eyebrow, formatINR } from '@hisaab/ui';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { ChevronRight, Plus, Zap } from 'lucide-react';
+import { ChevronRight, Plus, Zap } from '@/components/AnimatedIcon';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { DiyaMark } from '@/components/DiyaMark';
