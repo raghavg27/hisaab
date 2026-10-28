@@ -40,7 +40,6 @@ export function liteVisuals(): boolean {
   return (
     prefersReducedMotion() ||
     (nav.deviceMemory !== undefined && nav.deviceMemory <= 2) ||
-    (nav.hardwareConcurrency ?? 8) <= 4 ||
     nav.connection?.saveData === true
   );
 }
