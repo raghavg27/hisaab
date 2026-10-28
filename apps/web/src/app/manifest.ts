@@ -3,7 +3,7 @@ import { APP_NAME } from '@/lib/config';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${APP_NAME} — game night tracker`,
+    name: `${APP_NAME} · game night tracker`,
     short_name: APP_NAME,
     description: 'Keep score at teen patti night. Works offline.',
     start_url: '/app',

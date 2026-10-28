@@ -142,7 +142,7 @@ export function LogView({
                         <span className="text-loss">
                           {' '}
                           · {t('voided', { reason: t(`reasons.${l.voided.reason}`) })}
-                          {l.voided.note && !l.voided.note.startsWith('fix:') ? ` — ${l.voided.note}` : ''}
+                          {l.voided.note && !l.voided.note.startsWith('fix:') ? ` · ${l.voided.note}` : ''}
                         </span>
                       )}
                       {mismatch !== 0 && <span className="text-loss"> · {t('mismatch', { amount: formatINR(mismatch) })}</span>}

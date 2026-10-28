@@ -10,7 +10,7 @@ const serif = Gloock({ subsets: ['latin'], weight: '400', variable: '--font-gloo
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: { default: `${APP_NAME} — game night tracker`, template: `%s · ${APP_NAME}` },
+  title: { default: `${APP_NAME} · game night tracker`, template: `%s · ${APP_NAME}` },
   description:
     'Keep score at teen patti night. Track buy-ins, top-ups and shorts, see where the count went wrong, and settle up in two minutes. Works offline.',
   applicationName: APP_NAME,

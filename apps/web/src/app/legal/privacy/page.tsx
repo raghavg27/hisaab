@@ -8,7 +8,7 @@ export default function PrivacyPage() {
       <h1>Privacy Policy</h1>
       <p className="text-caption text-text-3">Last updated 28 October 2026</p>
       <p>
-        We collect the minimum Hisaab needs to keep score, we don&apos;t sell or share your data, and you can export or
+        We collect the minimum Hisaab needs to keep score, we do not sell or share your data, and you can export or
         delete it at any time. This policy follows the basics of India&apos;s Digital Personal Data Protection Act, 2023.
       </p>
 
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           Our service providers store data for us: Supabase (database and sign-in) and Vercel (hosting and anonymous
           analytics). They process it only on our instructions.
         </li>
-        <li>We don&apos;t sell your data, show ads, or share it with anyone else.</li>
+        <li>We do not sell your data, show ads, or share it with anyone else.</li>
       </ul>
 
       <h2>Your rights</h2>

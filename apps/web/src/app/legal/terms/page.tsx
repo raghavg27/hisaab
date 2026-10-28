@@ -8,11 +8,11 @@ export default function TermsPage() {
       <h1>Terms of Service</h1>
       <p className="text-caption text-text-3">Last updated 28 October 2026</p>
       <p>
-        Hisaab is a scorekeeping app for game nights among friends. By using it you agree to these terms. If you don&apos;t
-        agree, please don&apos;t use Hisaab.
+        Hisaab is a scorekeeping app for game nights among friends. By using it you agree to these terms. If you do not
+        agree, please do not use Hisaab.
       </p>
 
-      <h2>What Hisaab is — and isn&apos;t</h2>
+      <h2>What Hisaab is, and what it is not</h2>
       <ul>
         <li>Hisaab is a record-keeping tool. It writes down what the people at your table tell it to.</li>
         <li>Hisaab does not host, run or organise any game, and does not decide who wins or loses.</li>
@@ -27,7 +27,7 @@ export default function TermsPage() {
       <ul>
         <li>You are responsible for following the laws that apply where you live and play.</li>
         <li>You are responsible for what you record, and for settling up with your friends outside the app.</li>
-        <li>Don&apos;t use Hisaab to harass anyone, to impersonate anyone, or to break the law.</li>
+        <li>Do not use Hisaab to harass anyone, to impersonate anyone, or to break the law.</li>
         <li>Keep your sign-in email secure. Anyone who can read it can sign in as you.</li>
       </ul>
 
@@ -40,15 +40,15 @@ export default function TermsPage() {
       <h2>No warranty</h2>
       <p>
         Hisaab is provided as is. We work hard to keep the numbers right, and every night can be checked against its full
-        log, but we can&apos;t promise the app will always be available or error-free. To the extent the law allows, we
-        aren&apos;t liable for losses arising from your use of the app or from disputes between players.
+        log, but we cannot promise the app will always be available or error-free. To the extent the law allows, we
+        are not liable for losses arising from your use of the app or from disputes between players.
       </p>
 
       <h2>Ending your use</h2>
       <p>You can delete your account at any time from the Me tab. We may suspend accounts that break these terms.</p>
 
       <h2>Changes</h2>
-      <p>If these terms change in a meaningful way, we&apos;ll say so in the app before the change takes effect.</p>
+      <p>If these terms change in a meaningful way, we will say so in the app before the change takes effect.</p>
 
       <p className="text-caption text-text-3">
         These terms are a working draft and have not yet been reviewed by a lawyer.

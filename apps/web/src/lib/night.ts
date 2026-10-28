@@ -36,7 +36,7 @@ export async function record(sessionId: string, drafts: Draft[]): Promise<Record
     const session = await db.sessions.get(sessionId);
     if (!session) return { ok: false as const, code: 'not_started' as const, message: 'Night not found' };
     if (session.hostUserId !== actor)
-      return { ok: false as const, code: 'not_started' as const, message: "You're not the host of this night" };
+      return { ok: false as const, code: 'not_started' as const, message: 'You are not the host of this night' };
     const existing = await loadEvents(sessionId);
     let state: NightState = project(existing);
     const all: LedgerEvent[] = [...existing];
