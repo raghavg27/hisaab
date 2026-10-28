@@ -121,6 +121,11 @@ export function LeaveSheet({
   }
 
   const title = isBank || isHostLeaving ? tm('title') : t('title', { name });
+  const back = (to: Step) => (
+    <Button variant="ghost" size="lg" disabled={busy} onClick={() => (setError(null), setStep(to))}>
+      {tc('back')}
+    </Button>
+  );
   const loggedIn = others.filter((s) => {
     const m = night.member(s.memberId);
     return m?.userId && m.userId !== session.hostUserId;
@@ -206,6 +211,7 @@ export function LeaveSheet({
                   {t('settlePart')}
                 </Button>
               )}
+              {back('count')}
             </>
           )}
 
@@ -224,6 +230,7 @@ export function LeaveSheet({
               >
                 {tc('confirm')} · {formatINR(partial)}
               </Button>
+              {back('result')}
             </>
           )}
 
@@ -235,6 +242,7 @@ export function LeaveSheet({
               <Button variant="primary" size="lg" onClick={() => setStep('bankHolder')}>
                 {t('next')}
               </Button>
+              {back('result')}
             </>
           )}
 
@@ -250,6 +258,7 @@ export function LeaveSheet({
               >
                 {isHostLeaving ? t('next') : tb('handover')}
               </Button>
+              {back('bankCount')}
             </>
           )}
 
@@ -266,6 +275,7 @@ export function LeaveSheet({
                   </Button>
                 </>
               )}
+              {back(isBank ? 'bankHolder' : 'result')}
             </>
           )}
         </div>
