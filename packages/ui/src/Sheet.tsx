@@ -69,7 +69,7 @@ export function Sheet({
             aria-modal="true"
             aria-labelledby={titleId}
             tabIndex={-1}
-            className="relative w-full max-w-[480px] rounded-t-[var(--radius-sheet)] border-t border-hairline-strong bg-surface-2 px-4 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] outline-none"
+            className="relative max-h-[92dvh] w-full max-w-[480px] overflow-y-auto overscroll-contain rounded-t-[var(--radius-sheet)] border-t border-hairline-strong bg-surface-2 px-4 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] outline-none"
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
