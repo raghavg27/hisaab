@@ -218,6 +218,8 @@ test('a 15-person night, start to finish', async ({ page, context, browser }) =>
 
   await page.getByRole('button', { name: 'Close night' }).click();
   await expect(page.getByRole('button', { name: 'Reopen night' })).toBeVisible();
+  // The first close offers Add to Home Screen on iPhone.
+  if (test.info().project.name === 'iphone14') await sheet(page).getByRole('button', { name: 'Later' }).click();
 
   // ── Reopen: void one adjustment (allowed even though a payment was ticked), re-fix, re-close.
   await page.getByRole('button', { name: 'Reopen night' }).click();
