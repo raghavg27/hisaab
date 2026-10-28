@@ -34,7 +34,7 @@ export function PlayerCard({
       layout
       transition={{ duration: 0.18 }}
       className="rounded-[var(--radius-card)] bg-surface-1 p-3 shadow-[var(--key)]"
-      aria-label={`${name}, in ${rupeesLabel(d.netChips)}${d.shortOutstanding > 0 ? `, short ${rupeesLabel(d.shortOutstanding)}` : ''}`}
+      aria-label={`${name}, ${t('in', { amount: rupeesLabel(d.netChips) })}${d.shortOutstanding > 0 ? `, ${t('short', { amount: rupeesLabel(d.shortOutstanding) })}` : ''}`}
     >
       <div className="flex items-center gap-3">
         <Avatar name={name} color={member?.color ?? 'sand'} size={40} />
@@ -54,7 +54,7 @@ export function PlayerCard({
           </p>
           <p className="flex flex-wrap items-center gap-x-2 text-label text-text-2" aria-hidden>
             <span>
-              In <AmountText value={d.netChips} />
+              {t('inPrefix')} <AmountText value={d.netChips} />
             </span>
             {d.shortOutstanding > 0 && (
               <span className="rounded-full border border-short/40 px-2 text-caption text-short">

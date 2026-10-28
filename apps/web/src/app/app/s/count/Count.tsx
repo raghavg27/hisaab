@@ -34,6 +34,7 @@ export function Count() {
 function CountScreen({ night }: { night: Night }) {
   const t = useTranslations('count');
   const tc = useTranslations('common');
+  const tl = useTranslations('live');
   const go = useGo();
   const show = useToast((s) => s.show);
   const { session, state, isHost } = night;
@@ -104,7 +105,7 @@ function CountScreen({ night }: { night: Night }) {
                 <Avatar name={m?.nickname ?? '?'} color={m?.color ?? 'sand'} size={40} />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-semibold">{m?.nickname}</span>
-                  <span className="block text-caption text-text-3">In {formatINR(derive(s).netChips)}</span>
+                  <span className="block text-caption text-text-3">{tl('in', { amount: formatINR(derive(s).netChips) })}</span>
                 </span>
                 <span className={cn('tnum text-amount font-semibold', s.final === null && 'text-[15px] font-normal text-text-3')}>
                   {s.final === null ? t('tapToCount') : formatINR(s.final)}

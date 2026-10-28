@@ -59,6 +59,7 @@ function Table({ night }: { night: Night }) {
   const t = useTranslations('live');
   const tc = useTranslations('common');
   const th = useTranslations('host');
+  const ts = useTranslations('settle');
   const go = useGo();
   const show = useToast((s) => s.show);
   const userId = useAuth((s) => s.userId);
@@ -193,7 +194,7 @@ function Table({ night }: { night: Night }) {
                         <p className="truncate">{m?.nickname}</p>
                         <p className={cn('tnum text-caption', (d.pnl ?? 0) > 0 ? 'text-win' : (d.pnl ?? 0) < 0 ? 'text-loss' : 'text-text-3')}>
                           {formatSigned(d.pnl ?? 0)}
-                          {d.deferred !== 0 && <span className="text-text-3"> · {formatSigned(d.deferred)} later</span>}
+                          {d.deferred !== 0 && <span className="text-text-3"> · {ts('deferred', { amount: formatSigned(d.deferred) })}</span>}
                         </p>
                       </div>
                       {isHost && !counting && rejoinable && (
