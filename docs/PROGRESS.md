@@ -15,6 +15,7 @@ Update this file after every step so a resumed session knows where to pick up.
 - Background Sync is not used: the SW can't read the Supabase session; flush runs on online/visibility/10 s instead.
 - The once-a-day splash plays on `/app` (the PWA start_url), not on the public landing page: on `/` it cost Lighthouse performance 60 (3D chunk + covered LCP). It never loads on deep links such as the Live Table.
 - The Live Table loads ~354 KB gzipped JS against the §12 budget of 170 KB. React + Next alone are ~125 KB; supabase-js, Dexie, Motion and zod (all PRD stack) make up most of the rest. No Three.js or GSAP is on the route. Trimmed with zod/mini and a lazy QR code; meeting 170 KB would need dropping parts of the mandated stack.
+- Max players at a table is 20, not the PRD's provisional 12: a 15-person night could not seat its 13th player.
 - `--text-3` is `#887F6E` instead of the PRD's `#7A7262`: the original is 4.2:1 on bg and fails WCAG AA for 12px captions.
 
 ## M0 Foundation
