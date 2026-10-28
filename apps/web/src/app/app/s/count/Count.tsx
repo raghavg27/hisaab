@@ -150,7 +150,7 @@ function CountScreen({ night }: { night: Night }) {
               <p className="tnum text-center text-amount font-semibold">{formatINR(value)}</p>
             </>
           ) : (
-            <Keypad value={value} onChange={setValue} />
+            <Keypad key={editing?.id} value={value} onChange={setValue} />
           )}
           <Button variant="primary" size="lg" onClick={save}>
             {tc('save')} · {formatINR(value)}

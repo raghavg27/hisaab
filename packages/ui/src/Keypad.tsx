@@ -1,5 +1,6 @@
 'use client';
 import { Delete } from 'lucide-react';
+import { useRef } from 'react';
 import { formatGrouped } from './format';
 import { cn } from './cn';
 
@@ -16,9 +17,13 @@ export function Keypad({
   onChange: (n: number) => void;
   label?: string;
 }) {
+  // A prefilled value is replaced by the first digit typed, not appended to.
+  const fresh = useRef(true);
   const press = (k: (typeof KEYS)[number]) => {
+    const replace = fresh.current;
+    fresh.current = false;
     if (k === 'del') return onChange(Math.floor(value / 10));
-    const next = Number(`${value || ''}${k}`);
+    const next = Number(`${(!replace && value) || ''}${k}`);
     if (next <= MAX) onChange(next);
   };
   return (
