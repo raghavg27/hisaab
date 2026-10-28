@@ -204,6 +204,13 @@ async function markClean<T extends { id: string; updatedAt: string }>(
 
 async function pushEvents(sessionId: string, events: LocalEvent[]) {
   events.sort((a, b) => a.seq - b.seq);
+  // A closed night accepts only SESSION_REOPENED, and the server reopens it after that insert
+  // finishes, so entries after a reopen go up in the next request.
+  const reopen = events.findIndex((e) => e.type === 'SESSION_REOPENED');
+  if (reopen >= 0 && reopen < events.length - 1) {
+    await pushEvents(sessionId, events.slice(0, reopen + 1));
+    return pushEvents(sessionId, events.slice(reopen + 1));
+  }
   const rows = events.map(({ synced: _s, ...e }) => eventToRow(e as LedgerEvent));
   const { error } = await supabase()
     .from('events')
