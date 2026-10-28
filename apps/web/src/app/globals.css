@@ -43,3 +43,25 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Lenis's stylesheet (lenis/dist/lenis.css), inlined so the landing page doesn't load a second render-blocking file. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+/* Landing hero: headline words rise out of a mask. */
+@keyframes landing-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+.landing-rise {
+  animation: landing-rise 1.1s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+}
