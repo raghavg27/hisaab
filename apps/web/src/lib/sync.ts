@@ -245,7 +245,8 @@ async function handleRejected(sessionId: string, events: LocalEvent[]) {
 
 export async function verifyAndClose(sessionId: string) {
   const { data, error } = await supabase().functions.invoke('verify-and-close', { body: { sessionId } });
-  if (error) return;
+  // Reopened while the server was checking: that verdict is about a close that no longer stands.
+  if (error || (await db.sessions.get(sessionId))?.status !== 'closed') return;
   if (data?.ok) await db.sessions.update(sessionId, { verifiedAt: data.verifiedAt, status: 'closed', reviewNote: null });
   else if (data) await db.sessions.update(sessionId, { status: 'needs_review', reviewNote: data.error ?? null });
 }

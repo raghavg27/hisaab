@@ -46,13 +46,27 @@ Deno.serve(async (req) => {
     clientTs: r.client_ts,
   }));
 
+  // The host may reopen while this runs. Its reopen wins: write nothing once the log has moved on,
+  // and only ever update a night that is still closed.
+  const lastSeq = events.at(-1)?.seq ?? 0;
+  const moved = async () => {
+    const { data } = await service.from('events').select('seq').eq('session_id', sessionId).gt('seq', lastSeq).limit(1);
+    return !!data?.length;
+  };
+  const stale = () => json({ ok: false, error: 'night changed while verifying' }, 409);
+
   const fail = async (reason: string) => {
-    await service.from('sessions').update({ status: 'needs_review', review_note: reason, verified_at: null }).eq('id', sessionId);
+    if (await moved()) return stale();
+    await service
+      .from('sessions')
+      .update({ status: 'needs_review', review_note: reason, verified_at: null })
+      .eq('id', sessionId)
+      .eq('status', 'closed');
     return json({ ok: false, error: reason });
   };
 
   const state = project(events);
-  if (state.status !== 'closed') return json({ ok: false, error: 'night is not closed' });
+  if (state.status !== 'closed') return json({ ok: false, error: 'night is not closed' }, 409);
   const voided = voidedMap(events);
   const bad = firstInvalid(events.filter((e: { id: string; type: string }) => !voided.has(e.id) && e.type !== 'EVENT_VOIDED'));
   if (bad) return fail(`entry #${bad.event.seq} is invalid: ${bad.message}`);
@@ -62,6 +76,7 @@ Deno.serve(async (req) => {
   if (total !== 0) return fail(`results sum to ${total}, not 0`);
 
   const results = nightResults(state, nameOf);
+  if (await moved()) return stale();
   await service.from('session_results').delete().eq('session_id', sessionId);
   const { error: insErr } = await service.from('session_results').insert(
     results.map((r: ReturnType<typeof nightResults>[number]) => ({
@@ -78,6 +93,6 @@ Deno.serve(async (req) => {
   );
   if (insErr) return json({ ok: false, error: insErr.message }, 500);
   const verifiedAt = new Date().toISOString();
-  await service.from('sessions').update({ verified_at: verifiedAt, status: 'closed', review_note: null }).eq('id', sessionId);
+  await service.from('sessions').update({ verified_at: verifiedAt, review_note: null }).eq('id', sessionId).eq('status', 'closed');
   return json({ ok: true, verifiedAt });
 });
