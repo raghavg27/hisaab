@@ -369,6 +369,7 @@
     "removeAdmin": "Admin hatao",
     "unlink": "Account alag karo",
     "archive": "Group se hatao",
+    "archiveConfirm": "{name} ko hatana hai? Dobara tap karo",
     "makeOwner": "Owner banao",
     "owner": "Owner",
     "admin": "Admin",

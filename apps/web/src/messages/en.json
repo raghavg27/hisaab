@@ -369,6 +369,7 @@
     "removeAdmin": "Remove admin",
     "unlink": "Unlink account",
     "archive": "Remove from group",
+    "archiveConfirm": "Remove {name}? Tap again",
     "makeOwner": "Make owner",
     "owner": "Owner",
     "admin": "Admin",

@@ -210,6 +210,8 @@ function MemberSheet({
   const error = name.trim() === member.nickname ? null : nicknameError(members, name, member.id);
   const isOwner = me?.role === 'owner';
   const isSelf = member.id === me?.id;
+  // There is no unarchive, so removing takes a second tap.
+  const [archiving, setArchiving] = useState(false);
 
   async function run(fn: () => Promise<unknown>) {
     try {
@@ -258,8 +260,11 @@ function MemberSheet({
           </Button>
         )}
         {member.role !== 'owner' && !isSelf && (
-          <Button variant="danger" onClick={() => run(() => updateMember(member.id, { archivedAt: new Date().toISOString() }))}>
-            <Trash2 size={18} strokeWidth={1.5} aria-hidden /> {t('archive')}
+          <Button
+            variant="danger"
+            onClick={() => (archiving ? run(() => updateMember(member.id, { archivedAt: new Date().toISOString() })) : setArchiving(true))}
+          >
+            <Trash2 size={18} strokeWidth={1.5} aria-hidden /> {archiving ? t('archiveConfirm', { name: member.nickname }) : t('archive')}
           </Button>
         )}
       </div>
