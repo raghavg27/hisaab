@@ -181,7 +181,8 @@ export function canApply(state: NightState, e: LedgerEvent): CanApply {
 function canVoid(state: NightState, targetId: string, voidId: string): CanApply {
   const entry = state.log.find((l) => l.event.id === targetId);
   if (!entry) return fail('unknown_target', 'Entry not found');
-  if (entry.voided) return fail('already_voided', 'Already voided');
+  // An implied void (a lone BUY_IN's PLAYER_JOINED) may be made explicit: Undo voids both.
+  if (entry.voided && !entry.voided.implied) return fail('already_voided', 'Already voided');
   if (!VOIDABLE.includes(entry.event.type)) return fail('not_voidable', "This entry can't be voided");
   // The log without the target (and anything it implies) must still be valid, in order.
   const events = state.log.map((l) => l.event);
