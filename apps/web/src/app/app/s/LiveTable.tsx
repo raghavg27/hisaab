@@ -60,6 +60,7 @@ function Table({ night }: { night: Night }) {
   const tc = useTranslations('common');
   const th = useTranslations('host');
   const ts = useTranslations('settle');
+  const thome = useTranslations('home');
   const go = useGo();
   const show = useToast((s) => s.show);
   const userId = useAuth((s) => s.userId);
@@ -167,6 +168,7 @@ function Table({ night }: { night: Night }) {
             ))}
           </AnimatePresence>
         </motion.ul>
+        {shown.length === 0 && <p className="py-6 text-center text-label text-text-3">{filterShorts ? t('noShorts') : thome('emptyTitle')}</p>}
 
         {session.config.kitty && <KittyChecklist night={night} />}
 

@@ -113,6 +113,7 @@
     "bank": "Bank",
     "onTable": "On table",
     "shortsOut": "Shorts out",
+    "noShorts": "Nobody has a short right now.",
     "inPrefix": "In",
     "in": "In {amount}",
     "short": "Short {amount}",

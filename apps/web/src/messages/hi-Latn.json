@@ -113,6 +113,7 @@
     "bank": "Bank",
     "onTable": "Table pe",
     "shortsOut": "Baaki shorts",
+    "noShorts": "Abhi kisi ka short nahi hai.",
     "inPrefix": "Andar",
     "in": "Andar {amount}",
     "short": "Short {amount}",
