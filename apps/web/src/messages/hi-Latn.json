@@ -93,6 +93,7 @@
     "selected": "{count} chune",
     "dragHint": "Seat order ke liye drag karo",
     "needTwo": "Kam se kam 2 players chuno",
+    "tooMany": "Ek table pe zyada se zyada {max} players",
     "buyIn": "Buy-in",
     "topUp": "Top-up",
     "sameAsBuyIn": "Buy-in jitna",
@@ -114,6 +115,8 @@
     "onTable": "Table pe",
     "shortsOut": "Baaki shorts",
     "noShorts": "Abhi kisi ka short nahi hai.",
+    "cardLabel": "{name}, andar {amount}",
+    "cardLabelShort": ", short {amount}",
     "inPrefix": "Andar",
     "in": "Andar {amount}",
     "short": "Short {amount}",
@@ -522,6 +525,7 @@
   "sync": {
     "live": "Live",
     "offline": "Offline · {count} sync baaki",
-    "syncing": "Sync ho raha hai"
+    "syncing": "Sync ho raha hai",
+    "failed": "Sync nahi hua · {count} baaki"
   }
 }

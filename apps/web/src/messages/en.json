@@ -93,6 +93,7 @@
     "selected": "{count} selected",
     "dragHint": "Drag to set seat order",
     "needTwo": "You need at least 2 players",
+    "tooMany": "At most {max} players at a table",
     "buyIn": "Buy-in",
     "topUp": "Top-up",
     "sameAsBuyIn": "Same as buy-in",
@@ -114,6 +115,8 @@
     "onTable": "On table",
     "shortsOut": "Shorts out",
     "noShorts": "Nobody has a short right now.",
+    "cardLabel": "{name}, in {amount}",
+    "cardLabelShort": ", short {amount}",
     "inPrefix": "In",
     "in": "In {amount}",
     "short": "Short {amount}",
@@ -522,6 +525,7 @@
   "sync": {
     "live": "Live",
     "offline": "Offline · {count} to sync",
-    "syncing": "Syncing"
+    "syncing": "Syncing",
+    "failed": "Not synced · {count} waiting"
   }
 }

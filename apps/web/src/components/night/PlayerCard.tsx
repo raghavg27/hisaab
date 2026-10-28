@@ -34,7 +34,7 @@ export function PlayerCard({
       layout
       transition={{ duration: 0.18 }}
       className="rounded-[var(--radius-card)] bg-surface-1 p-3 shadow-[var(--key)]"
-      aria-label={`${name}, ${t('in', { amount: rupeesLabel(d.netChips) })}${d.shortOutstanding > 0 ? `, ${t('short', { amount: rupeesLabel(d.shortOutstanding) })}` : ''}`}
+      aria-label={`${t('cardLabel', { name, amount: rupeesLabel(d.netChips) })}${d.shortOutstanding > 0 ? t('cardLabelShort', { amount: rupeesLabel(d.shortOutstanding) }) : ''}`}
     >
       <div className="flex items-center gap-3">
         <Avatar name={name} color={member?.color ?? 'sand'} size={40} />
