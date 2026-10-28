@@ -435,6 +435,8 @@
     "deleteBody": "Isse aapki profile hat jayegi aur har group mein aapka naam account se alag ho jayega. Group history mein nickname rahega. Ye wapas nahi hoga.",
     "deleteConfirm": "Confirm karne ke liye DELETE likho",
     "signOut": "Sign out",
+    "signOutUnsynced": "{count, plural, one {# entry} other {# entries}} abhi sync nahi hui. Sign out karne par ye is phone se hat jayengi.",
+    "signOutAnyway": "Phir bhi sign out karo",
     "install": "App install karo",
     "iosInstallTitle": "Home Screen pe lagao",
     "iosInstallBody": "Share dabao, phir \"Add to Home Screen\".",

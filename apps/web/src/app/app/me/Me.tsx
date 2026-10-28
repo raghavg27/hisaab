@@ -11,6 +11,7 @@ import { ToastHost } from '@/components/ToastHost';
 import { Toggle } from '@/components/Toggle';
 import { saveProfile, signOut, useAuth } from '@/lib/auth';
 import { db } from '@/lib/db';
+import { unsyncedCount } from '@/lib/host';
 import { useGo } from '@/lib/nav';
 import { usePrefs, type Locale } from '@/lib/prefs';
 import { supabase } from '@/lib/supabase';
@@ -26,6 +27,7 @@ export function Me() {
   const [name, setName] = useState(profile?.displayName ?? '');
   const [deleting, setDeleting] = useState(false);
   const [confirm, setConfirm] = useState('');
+  const [unsynced, setUnsynced] = useState(0);
   const [busy, setBusy] = useState(false);
   if (!profile) return null;
 
@@ -50,6 +52,18 @@ export function Me() {
     a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
     a.download = `hisaab-export-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
+  }
+
+  async function leave() {
+    await signOut();
+    go('/', { replace: true });
+  }
+
+  // Signing out wipes the local database, so warn before losing entries that never synced.
+  async function trySignOut() {
+    const n = await unsyncedCount();
+    if (n > 0) setUnsynced(n);
+    else await leave();
   }
 
   async function deleteAccount() {
@@ -129,7 +143,7 @@ export function Me() {
         <Button variant="surface" size="lg" onClick={exportData}>
           <Download size={18} strokeWidth={1.5} aria-hidden /> {t('export')}
         </Button>
-        <Button variant="outline" size="lg" onClick={async () => (await signOut(), go('/', { replace: true }))}>
+        <Button variant="outline" size="lg" onClick={trySignOut}>
           <LogOut size={18} strokeWidth={1.5} aria-hidden /> {t('signOut')}
         </Button>
         <Button variant="danger" size="lg" onClick={() => setDeleting(true)}>
@@ -141,6 +155,13 @@ export function Me() {
           </Link>
         </p>
       </section>
+
+      <Sheet open={unsynced > 0} onClose={() => setUnsynced(0)} title={t('signOut')}>
+        <p className="mb-4 text-text-2">{t('signOutUnsynced', { count: unsynced })}</p>
+        <Button variant="danger" size="lg" onClick={leave}>
+          {t('signOutAnyway')}
+        </Button>
+      </Sheet>
 
       <Sheet open={deleting} onClose={() => setDeleting(false)} title={t('delete')}>
         <p className="mb-4 text-text-2">{t('deleteBody')}</p>

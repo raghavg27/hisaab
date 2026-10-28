@@ -435,6 +435,8 @@
     "deleteBody": "This removes your profile and unlinks your name in every group. Group history keeps the nickname. This cannot be undone.",
     "deleteConfirm": "Type DELETE to confirm",
     "signOut": "Sign out",
+    "signOutUnsynced": "{count, plural, one {# entry has} other {# entries have}} not synced yet. Signing out deletes {count, plural, one {it} other {them}} from this phone.",
+    "signOutAnyway": "Sign out anyway",
     "install": "Install app",
     "iosInstallTitle": "Add to Home Screen",
     "iosInstallBody": "Tap Share, then \"Add to Home Screen\".",
