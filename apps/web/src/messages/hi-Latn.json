@@ -508,8 +508,14 @@
     "table_full": "Zyada se zyada {max} players",
     "gap_not_zero": "Ginti abhi barabar nahi",
     "not_counted": "Pehle sabki ginti karo",
-    "void_breaks_log": "Baad ki ek entry isi pe tiki hai. Pehle use void karo.",
-    "bank_holder_must_handover": "Jaane se pehle bank kisi ko do"
+    "void_breaks_log": "Baad ki entry (#{seq}) isi pe tiki hai. Pehle use void karo.",
+    "bank_holder_must_handover": "Jaane se pehle bank kisi ko do",
+    "stint_left": "Ye player table chhod chuka hai",
+    "closed": "Ye raat band ho chuki hai. Pehle reopen karo.",
+    "not_counting": "Pehle ginti shuru karo",
+    "already_voided": "Pehle se void hai",
+    "same_member": "Kisi aur ko chuno",
+    "no_players": "Table pe koi nahi hai"
   },
   "sync": {
     "live": "Live",

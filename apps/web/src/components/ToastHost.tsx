@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { UNDO_MS } from '@/lib/config';
 import { recordOne, record } from '@/lib/night';
 import { prefersReducedMotion } from '@/lib/prefs';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 import { cn } from '@hisaab/ui';
 
@@ -12,6 +13,7 @@ export function ToastHost({ bottom = 96 }: { bottom?: number }) {
   const t = useTranslations('common');
   const tl = useTranslations('live.toast');
   const { toast, clear, show } = useToast();
+  const errorText = useErrorText();
 
   async function undo() {
     if (!toast?.undo) return;
@@ -25,7 +27,7 @@ export function ToastHost({ bottom = 96 }: { bottom?: number }) {
             // Void in reverse so later entries go first (e.g. BUY_IN before its PLAYER_JOINED).
             [...eventIds].reverse().map((targetId) => ({ type: 'EVENT_VOIDED' as const, payload: { targetId, reason: 'undo' as const } })),
           );
-    show(r.ok ? { message: tl('undone') } : { message: r.message, tone: 'error' }, 2500);
+    show(r.ok ? { message: tl('undone') } : { message: errorText(r), tone: 'error' }, 2500);
   }
 
   return (

@@ -29,6 +29,7 @@ import { record, recordOne, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
 import { useSync } from '@/lib/sync';
 import { describeEvent } from '@/lib/describe';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 
 type SheetState =
@@ -63,6 +64,7 @@ function Table({ night }: { night: Night }) {
   const thome = useTranslations('home');
   const go = useGo();
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const userId = useAuth((s) => s.userId);
   const { session, state, isHost } = night;
   const [sheet, setSheet] = useState<SheetState>(null);
@@ -86,7 +88,7 @@ function Table({ night }: { night: Night }) {
 
   async function act(drafts: Parameters<typeof record>[1], message: string) {
     const r = await record(session.id, drafts);
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
     for (const e of r.events) track('event_recorded', { type: e.type });
     show({ message, undo: { sessionId: session.id, eventIds: r.events.map((e) => e.id) } });
@@ -307,7 +309,7 @@ function Table({ night }: { night: Night }) {
             size="lg"
             onClick={async () => {
               const r = await recordOne(session.id, 'COUNTING_STARTED', {});
-              if (!r.ok) return show({ message: r.message, tone: 'error' });
+              if (!r.ok) return show({ message: errorText(r), tone: 'error' });
               haptic();
               close();
               go(`/app/s/count?id=${session.id}`);
@@ -540,6 +542,7 @@ function AddPlayerSheet({
 function KittyChecklist({ night }: { night: Night }) {
   const t = useTranslations('live');
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const kitty = night.session.config.kitty!;
   const people = [...new Set(night.state.stints.map((s) => s.memberId))];
   const paid = people.filter((m) => night.state.kittyPaid[m]).length;
@@ -559,7 +562,7 @@ function KittyChecklist({ night }: { night: Night }) {
                 disabled={!night.isHost}
                 onClick={async () => {
                   const r = await recordOne(night.session.id, 'KITTY_MARKED', { memberId: m, paid: !on });
-                  if (!r.ok) show({ message: r.message, tone: 'error' });
+                  if (!r.ok) show({ message: errorText(r), tone: 'error' });
                 }}
                 className={cn('min-h-10 rounded-full border px-3 text-label', on ? 'border-win/50 text-win' : 'border-hairline-strong text-text-2')}
               >

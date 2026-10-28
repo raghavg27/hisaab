@@ -14,6 +14,7 @@ import { track } from '@/lib/analytics';
 import { useGo, useQueryId } from '@/lib/nav';
 import { record, recordOne, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 
 export function Count() {
@@ -37,6 +38,7 @@ function CountScreen({ night }: { night: Night }) {
   const tl = useTranslations('live');
   const go = useGo();
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const { session, state, isHost } = night;
   const [editing, setEditing] = useState<StintState | null>(null);
   const [value, setValue] = useState(0);
@@ -65,7 +67,7 @@ function CountScreen({ night }: { night: Night }) {
       finalChips: value,
       ...(chipSet ? { chipBreakdown: breakdown } : {}),
     });
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
     // Jump to the next uncounted player.
     const next = players.find((p) => p.id !== editing.id && p.final === null);
@@ -75,7 +77,7 @@ function CountScreen({ night }: { night: Night }) {
 
   async function backToGame() {
     const r = await recordOne(session.id, 'COUNTING_REOPENED', {});
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     go(`/app/s?id=${session.id}`, { replace: true });
   }
 
@@ -177,6 +179,7 @@ function GapSheet({ night, open, onClose }: { night: Night; open: boolean; onClo
   const t = useTranslations('count');
   const go = useGo();
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const [mode, setMode] = useState<'menu' | 'adjust'>('menu');
   const [resolution, setResolution] = useState<Resolution>('bank_absorbs');
   const [assignee, setAssignee] = useState<string | null>(null);
@@ -200,7 +203,7 @@ function GapSheet({ night, open, onClose }: { night: Night; open: boolean; onClo
       session.id,
       plan.map((p) => ({ type: 'ADJUSTMENT' as const, payload: { ...p, resolution, gapAtTime: st.gap } })),
     );
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
     onClose();
   }

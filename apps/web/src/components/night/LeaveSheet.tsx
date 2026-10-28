@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { drainOutbox, transferHost } from '@/lib/host';
 import { record, type Draft, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 import { ChipCounter } from './ChipCounter';
 
@@ -33,6 +34,7 @@ export function LeaveSheet({
   const tl = useTranslations('live');
   const tm = useTranslations('combined');
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const { state, session } = night;
 
   const [step, setStep] = useState<Step>('count');
@@ -100,7 +102,7 @@ export function LeaveSheet({
     const r = await record(session.id, drafts);
     if (!r.ok) {
       setBusy(false);
-      return setError(r.message);
+      return setError(errorText(r));
     }
     if (hostTo) {
       const drained = await drainOutbox(session.id);

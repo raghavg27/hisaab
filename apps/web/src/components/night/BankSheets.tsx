@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { recordOne, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 import { MemberPick } from './LeaveSheet';
 
@@ -12,6 +13,7 @@ import { MemberPick } from './LeaveSheet';
 export function BankCheckSheet({ night, open, onClose, onHandover }: { night: Night; open: boolean; onClose: () => void; onHandover: () => void }) {
   const t = useTranslations('bank');
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const expected = tableTotals(night.state.stints).bankCash;
   const [counted, setCounted] = useState(expected);
   useEffect(() => {
@@ -20,7 +22,7 @@ export function BankCheckSheet({ night, open, onClose, onHandover }: { night: Ni
 
   async function save() {
     const r = await recordOne(night.session.id, 'BANK_CHECK', { counted, expected });
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
     show({
       message: counted === expected ? `✓ ${t('match')}` : `${t('mismatch', { amount: formatINR(counted - expected) })}`,
@@ -54,6 +56,7 @@ export function BankCheckSheet({ night, open, onClose, onHandover }: { night: Ni
 export function BankHandoverSheet({ night, open, onClose }: { night: Night; open: boolean; onClose: () => void }) {
   const t = useTranslations('bank');
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const { state } = night;
   const expected = tableTotals(state.stints).bankCash;
   const [counted, setCounted] = useState(expected);
@@ -74,7 +77,7 @@ export function BankHandoverSheet({ night, open, onClose }: { night: Night; open
       counted,
       expected,
     });
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
     show({ message: `${t('handover')} → ${night.nameOf(to)}`, undo: { sessionId: night.session.id, eventIds: r.events.map((e) => e.id) } });
     onClose();

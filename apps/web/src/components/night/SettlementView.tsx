@@ -15,6 +15,7 @@ import { useGo } from '@/lib/nav';
 import { recordOne, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
 import { durationText, shareText } from '@/lib/share';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 import { maybeOfferInstall } from '@/components/InstallPrompt';
 import { ShareCard, shareCardPng } from './ShareCard';
@@ -32,6 +33,7 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
   const tl = useTranslations('live');
   const go = useGo();
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const { session, state, nameOf } = night;
   const canEdit = night.isHost && !viewer;
   const closed = state.status === 'closed';
@@ -79,7 +81,7 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
 
   async function mark(r: { from: string; to: string; amount: number }, paid: boolean) {
     const res = await recordOne(session.id, 'TRANSFER_MARKED', { from: r.from, to: r.to, amount: r.amount, paid });
-    if (!res.ok) show({ message: res.message, tone: 'error' });
+    if (!res.ok) show({ message: errorText(res), tone: 'error' });
     else haptic();
   }
 
@@ -130,7 +132,7 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
     }
     const r = await recordOne(session.id, 'SESSION_CLOSED', {});
     setBusy(false);
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
     track('night_closed', { duration_bucket: durationBucket(Date.now() - new Date(session.startedAt).getTime()) });
     show({ message: t('closed') });
@@ -139,7 +141,7 @@ export function SettlementView({ night, viewer = false }: { night: Night; viewer
 
   async function reopen() {
     const r = await recordOne(session.id, 'SESSION_REOPENED', { reason: reason.trim() });
-    if (!r.ok) return show({ message: r.message, tone: 'error' });
+    if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     setReopenOpen(false);
     go(`/app/s/count?id=${session.id}`);
   }

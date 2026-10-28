@@ -508,8 +508,14 @@
     "table_full": "A table can have at most {max} players",
     "gap_not_zero": "The count does not match yet",
     "not_counted": "Count everyone's chips first",
-    "void_breaks_log": "A later entry depends on this one. Void that first.",
-    "bank_holder_must_handover": "Hand over the bank before leaving"
+    "void_breaks_log": "A later entry (#{seq}) depends on this one. Void that first.",
+    "bank_holder_must_handover": "Hand over the bank before leaving",
+    "stint_left": "This player has left the table",
+    "closed": "This night is closed. Reopen it first.",
+    "not_counting": "Start counting first",
+    "already_voided": "Already voided",
+    "same_member": "Pick someone else",
+    "no_players": "No one is at the table"
   },
   "sync": {
     "live": "Live",

@@ -11,6 +11,7 @@ import { describeEvent } from '@/lib/describe';
 import { newId } from '@/lib/ids';
 import { record, type Night } from '@/lib/night';
 import { haptic } from '@/lib/prefs';
+import { useErrorText } from '@/lib/errors';
 import { useToast } from '@/lib/toast';
 
 type Filter = 'all' | 'shorts' | 'topUps' | 'leaves' | 'fixes' | 'gap';
@@ -187,6 +188,7 @@ function EventIcon({ e }: { e: LedgerEvent }) {
 function FixSheet({ night, target, onClose }: { night: Night; target: { entry: LogEntry; mode: 'void' | 'fix' } | null; onClose: () => void }) {
   const t = useTranslations('log');
   const show = useToast((s) => s.show);
+  const errorText = useErrorText();
   const [reason, setReason] = useState<VoidReason>('wrong_amount');
   const [note, setNote] = useState('');
   // null until edited, so clearing the keypad to 0 doesn't snap back to the old amount.
@@ -200,7 +202,7 @@ function FixSheet({ night, target, onClose }: { night: Night; target: { entry: L
     if (!e || !target) return;
     if (target.mode === 'void') {
       const r = await record(night.session.id, [{ type: 'EVENT_VOIDED', payload: { targetId: e.id, reason, ...(note ? { note } : {}) } }]);
-      if (!r.ok) return show({ message: r.message, tone: 'error' });
+      if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     } else {
       const newEventPayload =
         e.type === 'FINAL_COUNT' ? { ...e.payload, finalChips: amount } : { ...(e.payload as object), amount };
@@ -209,7 +211,7 @@ function FixSheet({ night, target, onClose }: { night: Night; target: { entry: L
         { type: 'EVENT_VOIDED', payload: { targetId: e.id, reason: 'wrong_amount', note: `fix:${fixedId}` } },
         { id: fixedId, type: e.type, payload: newEventPayload } as Parameters<typeof record>[1][number],
       ]);
-      if (!r.ok) return show({ message: r.message, tone: 'error' });
+      if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     }
     haptic();
     onClose();

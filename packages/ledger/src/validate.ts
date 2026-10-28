@@ -196,7 +196,8 @@ function canVoid(state: NightState, targetId: string, voidId: string): CanApply 
   const voided = voidedMap([...events, voidEvent]);
   const effective = events.filter((e) => !voided.has(e.id) && e.type !== 'EVENT_VOIDED');
   const bad = firstInvalid(effective);
-  if (bad) return fail('void_breaks_log', `A later entry depends on this one (#${bad.event.seq}): ${bad.message}`);
+  if (bad)
+    return fail('void_breaks_log', `A later entry depends on this one (#${bad.event.seq}): ${bad.message}`, { seq: bad.event.seq });
   return ok;
 }
 
