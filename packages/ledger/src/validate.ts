@@ -202,14 +202,15 @@ function canVoid(state: NightState, targetId: string, voidId: string): CanApply 
 
 /**
  * Replays an effective (void-free) log in seq order, validating each event against the state before it.
- * A close that was later reopened is history, so it isn't re-validated.
+ * A close that was later reopened is history, and a "Paid" tick moves no money, so neither is re-validated.
  */
 export function firstInvalid(events: LedgerEvent[]): { event: LedgerEvent; message: string; code: ErrorCode } | null {
   const state = emptyState();
   const sorted = sortBySeq(events);
   const lastReopen = sorted.findLast((e) => e.type === 'SESSION_REOPENED')?.seq ?? 0;
   for (const e of sorted) {
-    const r = e.type === 'SESSION_CLOSED' && e.seq < lastReopen ? ok : canApply(state, e);
+    const history = e.type === 'TRANSFER_MARKED' || (e.type === 'SESSION_CLOSED' && e.seq < lastReopen);
+    const r = history ? ok : canApply(state, e);
     if (!r.ok) return { event: e, message: r.message, code: r.code };
     state.log.push({ event: e, voided: null });
     applyEvent(state, e);
