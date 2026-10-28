@@ -71,7 +71,7 @@ test('force takeover from an offline host; its unsynced entries are rejected and
   // Back online, Amit's stale entry is refused and surfaced.
   await page.context().setOffline(false);
   await page.evaluate(() => window.dispatchEvent(new Event('online')));
-  await expect(page.getByText("You're no longer the host. This entry wasn't saved:")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByText('You are not the host anymore, so this entry was not saved:')).toBeVisible({ timeout: 20_000 });
   await expect(page.getByRole('listitem').filter({ hasText: 'Priya topped up · ₹500' })).toBeVisible();
   await expect(card(page, 'Priya')).toHaveAccessibleName('Priya, in 500 rupees');
   await rohitPage.context().close();

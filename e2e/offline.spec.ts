@@ -31,7 +31,7 @@ test('airplane mode from setup to settlement, then everything syncs (§14.3 #2)'
   await expect(page.getByRole('status').filter({ hasText: /Offline · \d+ to sync/ })).toBeVisible();
 
   await countAll(page, { Amit: 300, Rohit: 1200, Priya: 0, Kunal: 1000, Sana: 600 });
-  await expect(page.getByText('Everything matches — ₹3,100')).toBeVisible();
+  await expect(page.getByText('Everything matches at ₹3,100')).toBeVisible();
   await page.getByRole('button', { name: 'Settle' }).click();
   await page.waitForURL(/\/app\/s\/settle/);
   await page.getByRole('dialog', { name: 'Results' }).click();

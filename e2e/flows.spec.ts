@@ -23,7 +23,7 @@ test('gap: miscount, missing message, split equally, settlement shows ⚠ (§14.
   await sheet(page).getByRole('button', { name: 'Accept and adjust' }).click();
   await sheet(page).getByRole('radio', { name: 'Split equally' }).click();
   await sheet(page).getByRole('button', { name: 'Apply adjustment' }).click();
-  await expect(page.getByText('Everything matches — ₹1,500')).toBeVisible();
+  await expect(page.getByText('Everything matches at ₹1,500')).toBeVisible();
 
   await page.getByRole('button', { name: 'Settle' }).click();
   await page.getByRole('dialog', { name: 'Results' }).click();
@@ -41,12 +41,12 @@ test('leave with partial settlement defers the rest to the end (§14.3 #7)', asy
   await expect(sheet(page).getByText('Bank pays Rohit')).toBeVisible();
   await sheet(page).getByRole('button', { name: 'Settle part now', exact: true }).click();
   await keypad(page, 500);
-  await expect(sheet(page).getByText('₹400 moves to end-of-night settlement.')).toBeVisible();
+  await expect(sheet(page).getByText('₹400 will be settled at the end of the night.')).toBeVisible();
   await sheet(page).getByRole('button', { name: 'Confirm · ₹500' }).click();
   await expect(card(page, 'Rohit')).toHaveCount(0);
 
   await countAll(page, { Amit: 300, Priya: 300 });
-  await expect(page.getByText('Everything matches — ₹600')).toBeVisible();
+  await expect(page.getByText('Everything matches at ₹600')).toBeVisible();
   await page.getByRole('button', { name: 'Settle' }).click();
   await page.getByRole('dialog', { name: 'Results' }).click();
   await page.getByRole('button', { name: /Rohit/ }).first().click();
@@ -108,7 +108,7 @@ test.describe('reduced motion (§14.3 #9)', () => {
     await page.mouse.wheel(0, 600);
     await page.waitForTimeout(1_500);
     await expect(page.locator('canvas')).toHaveCount(0);
-    await expect(page.getByText('Everything matches — ₹6,000')).toBeVisible();
+    await expect(page.getByText('Everything matches at ₹6,000')).toBeVisible();
   });
 });
 

@@ -54,11 +54,11 @@
     "continue": "Aage chalo",
     "cards": {
       "c1t": "Shorts usi waqt note karo",
-      "c1b": "Top-up, short aur repay — do-teen tap mein. Ab \"11 baje lauta diya tha\" waali behes nahi.",
+      "c1b": "Top-up, short aur repay, sab do-teen tap mein. Ab \"11 baje lauta diya tha\" waali behes nahi.",
       "c2t": "Sabko ek hi log dikhe",
       "c2b": "Live link share karo. Har entry pe likha hai kisne aur kab daali.",
       "c3t": "Raat ke end mein hisaab clear",
-      "c3b": "Chips gino, dekho barabar hai ya nahi, aur kisko kitna dena hai — ek hi screen pe."
+      "c3b": "Chips gino, dekho barabar hai ya nahi, aur kisko kitna dena hai, sab ek hi screen pe."
     },
     "letsGo": "Chalo shuru karein"
   },
@@ -132,7 +132,7 @@
     "hostTag": "Host",
     "bankTag": "Bank",
     "lock": "Table lock karo",
-    "locked": "Locked — kholne ke liye dabaye rakho",
+    "locked": "Locked. Kholne ke liye dabaye rakho.",
     "elapsed": "{time}",
     "topUpTitle": "{name} ka top-up",
     "topUpBody": "{name} bank ko {amount} cash dega aur {amount} ke chips lega.",
@@ -180,7 +180,7 @@
     "countChips": "{name} ke chips gino",
     "bankPays": "Bank {name} ko dega",
     "playerPays": "{name} bank ko dega",
-    "even": "Barabar — kuch lena-dena nahi",
+    "even": "Barabar. Kuch lena-dena nahi.",
     "pnl": "Is round ka result",
     "settled": "Hisaab ho gaya ✓",
     "settlePart": "Abhi thoda do",
@@ -221,7 +221,7 @@
     "accept": "Host bano",
     "acceptTitle": "Ye game sambhaloge?",
     "acceptBody": "Ab se saari entries aap karoge. Purana phone sirf dekh payega.",
-    "offline": "Host offline hai — {minutes} min se koi update nahi"
+    "offline": "Host offline hai. {minutes} min se koi update nahi."
   },
   "combined": {
     "title": "Host + bank dono chhod rahe ho",
@@ -237,7 +237,7 @@
     "backToGame": "Game pe wapas",
     "counted": "{expected} mein se {counted} gine",
     "left": "{count, plural, one {# player} other {# players}} ki ginti baaki",
-    "match": "Hisaab barabar ✅ — {amount}",
+    "match": "{amount} pe hisaab barabar ✅",
     "missing": "Table se {amount} gayab hain",
     "extra": "Table pe {amount} zyada hain",
     "settle": "Hisaab karo",
@@ -287,7 +287,7 @@
     "reopenReason": "Kyun khol rahe ho?",
     "verified": "Verified",
     "needsReview": "Check karna hai: {reason}",
-    "kitty": "Kitty {amount} — {name} ke paas",
+    "kitty": "Kitty {amount}, {name} ke paas",
     "closeOutbox": "Band karne se pehle {count, plural, one {# entry} other {# entries}} sync ho rahi hai…",
     "duration": "{h}h {m}m",
     "stats": "{players} · {duration} · {chips} ke chips diye · {shorts} shorts",
@@ -454,7 +454,7 @@
   "join": {
     "title": "{group} join karo",
     "body": "Kya aapka naam pehle se list mein hai? Claim karo taaki history saath rahe.",
-    "imNew": "Main naya hoon — add karo",
+    "imNew": "Main naya hoon, add karo",
     "claim": "Main {name} hoon",
     "joined": "Aap group mein aa gaye.",
     "expired": "Ye invite expire ho gaya.",
@@ -466,7 +466,7 @@
     "sub": "Teen patti night pe buy-in, top-up aur shorts track karo. Ginti kahan gadbad hui, turant dikhe. Do minute mein hisaab.",
     "cta": "Game shuru karo",
     "f1t": "Shorts, record pe",
-    "f1b": "Har short aur repay usi waqt likha jaata hai — kisne daala aur kab, sab ke saath.",
+    "f1b": "Har short aur repay usi waqt likha jaata hai, saath mein kisne daala aur kab.",
     "f2t": "Sabko ek hi log dikhe",
     "f2b": "Live link share karo. Dost apne phone pe table update hote dekhein.",
     "f3t": "Barabar hai?",
@@ -484,7 +484,7 @@
   },
   "install": {
     "title": "Hisaab install karo",
-    "body": "Home screen pe lagao — turant khulega, offline bhi.",
+    "body": "Home screen pe lagao. Turant khulega, offline bhi.",
     "cta": "Install",
     "later": "Baad mein"
   },

@@ -21,8 +21,8 @@ export async function startNight(page: Page, group: string, others: string[]) {
   await sheet(page).getByLabel('Group name').fill(group);
   await sheet(page).getByRole('button', { name: 'Create' }).click();
   for (const n of others) {
-    await page.getByPlaceholder('Type a name, press Enter').fill(n);
-    await page.getByPlaceholder('Type a name, press Enter').press('Enter');
+    await page.getByPlaceholder('Type a name and press Enter').fill(n);
+    await page.getByPlaceholder('Type a name and press Enter').press('Enter');
     await expect(page.getByRole('button', { name: n, pressed: true })).toBeVisible();
   }
   await page.getByRole('button', { name: /Start night/ }).click();

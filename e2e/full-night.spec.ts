@@ -32,7 +32,7 @@ test.describe('full night (§14.3 #1)', () => {
     expect(a11y.violations.flatMap((v) => v.nodes.map((n) => `${v.id}: ${n.target} ${n.failureSummary}`))).toEqual([]);
 
     await countAll(page, { Amit: 300, Rohit: 1200, Priya: 0, Kunal: 1000, Sana: 600 });
-    await expect(page.getByText('Everything matches — ₹3,100')).toBeVisible();
+    await expect(page.getByText('Everything matches at ₹3,100')).toBeVisible();
     await page.getByRole('button', { name: 'Settle' }).click();
     await page.waitForURL(/\/app\/s\/settle/);
     await page.getByRole('dialog', { name: 'Results' }).click(); // skip reveal
