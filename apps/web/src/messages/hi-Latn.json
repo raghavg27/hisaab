@@ -257,6 +257,7 @@
     "assigned": "Ek player pe daalo",
     "pickPlayer": "Player chuno",
     "preview": "Adjust ke baad ginti",
+    "adjustedToast": "{amount} adjust kiya, ab ginti barabar",
     "applyAdjust": "Adjust karo"
   },
   "settle": {

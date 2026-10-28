@@ -205,6 +205,7 @@ function GapSheet({ night, open, onClose }: { night: Night; open: boolean; onClo
     );
     if (!r.ok) return show({ message: errorText(r), tone: 'error' });
     haptic();
+    show({ message: t('adjustedToast', { amount: formatINR(Math.abs(st.gap)) }), undo: { sessionId: session.id, eventIds: r.events.map((e) => e.id) } });
     onClose();
   }
 

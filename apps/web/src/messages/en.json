@@ -257,6 +257,7 @@
     "assigned": "Assign to one player",
     "pickPlayer": "Pick a player",
     "preview": "Adjusted counts",
+    "adjustedToast": "Adjusted {amount} so the count matches",
     "applyAdjust": "Apply adjustment"
   },
   "settle": {
