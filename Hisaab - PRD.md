@@ -855,7 +855,7 @@ Rules:
 
 ### 11.3 Typography
 - **UI and numbers:** Inter (via `next/font`), with `font-feature-settings: "tnum", "cv11"`. All amounts use tabular figures so columns align and rolling digits don't jitter.
-- **Display moments** (landing hero, reveal headline, big result numbers): Instrument Serif, regular weight, tight tracking (−0.02em). This gives a festive, slightly classical voice without being kitsch.
+- **Display moments** (landing hero, reveal headline, big result numbers): Gloock, regular weight, tight tracking (−0.02em). A bold, high-contrast serif with tabular figures and a ₹ glyph, so big amounts line up and render in the display face.
 - **Micro-labels / eyebrows:** JetBrains Mono, 11px, uppercase, +0.08em tracking, `--gold`.
 
 Type scale (px):
@@ -868,8 +868,8 @@ Type scale (px):
 | label | 13 / 500 |
 | title | 20 / 600 |
 | amount-lg | 28 / 600 tnum |
-| display | 44 Instrument Serif |
-| hero | 64 Instrument Serif (landing only) |
+| display | 44 Gloock |
+| hero | 64 Gloock (landing only) |
 
 ### 11.4 Shape, depth, spacing
 - Radius: cards 16, sheets 24 (top corners), buttons 12, pills/badges 999.
