@@ -13,3 +13,4 @@ public/sw.js*
 public/swe-worker*
 supabase/.temp/
 .lighthouseci/
+/.playwright-mcp
