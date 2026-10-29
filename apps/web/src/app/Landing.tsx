@@ -32,6 +32,7 @@ export function Landing() {
   const [scene, setScene] = useState(false);
   const [ready, setReady] = useState(false);
   const [inView, setInView] = useState(true);
+  const [sceneShift, setSceneShift] = useState(0);
 
   // The 3D table loads once the page is up, and only where the device can afford it. Desktops load it when idle;
   // phones wait for the first touch or scroll, so a visitor who only reads never pays for it.
@@ -64,6 +65,20 @@ export function Landing() {
     const io = new IntersectionObserver(([e]) => setInView(e!.isIntersecting));
     io.observe(hero.current!);
     return () => io.disconnect();
+  }, []);
+
+  // In portrait the chip stacks start ~57% down the hero. On short screens (iOS Safari's small viewport) the copy
+  // reaches further than that, so slide the table down until it clears the copy.
+  useEffect(() => {
+    const el = hero.current!;
+    const ro = new ResizeObserver(() => {
+      const h = el.clientHeight;
+      const copy = el.querySelector<HTMLElement>('[data-hero-copy]')!;
+      const clear = copy.offsetTop + copy.offsetHeight + 24 - 0.57 * h;
+      setSceneShift(el.clientWidth / h > 1.1 ? 0 : Math.max(0, clear));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   useMotion(hero, ({ gsap, ScrollTrigger, smoothScroll }) => {
@@ -124,6 +139,7 @@ export function Landing() {
                 'absolute inset-0 transition-opacity duration-1000',
                 ready ? 'opacity-100' : 'opacity-0',
               )}
+              style={{ transform: `translateY(${sceneShift}px)` }}
             >
               <TableScene scroll={scroll} active={inView} onReady={() => setReady(true)} />
             </div>
